@@ -3,21 +3,23 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-02-28 15:44:37
+ * @LastEditTime: 2021-03-01 17:58:02
 -->
 <template>
   <div id="app">
-    <Home />
+    <dv-full-screen-container>
+      <Center />
+    </dv-full-screen-container>
   </div>
 </template>
 
 <script>
-import Home from "./page/home";
+import Center from "./page/center";
 
 export default {
   name: "App",
   components: {
-    Home,
+    Center,
   },
 };
 </script>
@@ -27,7 +29,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
 }
 body,
 html {
