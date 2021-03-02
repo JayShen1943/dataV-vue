@@ -3,23 +3,22 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-01 17:58:02
+ * @LastEditTime: 2021-03-02 15:05:42
 -->
 <template>
   <div id="app">
     <dv-full-screen-container>
-      <Center />
+      <router-view> </router-view>
     </dv-full-screen-container>
   </div>
 </template>
 
 <script>
-import Center from "./page/center";
-
 export default {
   name: "App",
-  components: {
-    Center,
+  components: {},
+  data() {
+    return {};
   },
 };
 </script>

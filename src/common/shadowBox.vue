@@ -3,11 +3,11 @@
  * @Author: JayShen
  * @Date: 2021-02-28 16:02:41
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-01 18:18:32
+ * @LastEditTime: 2021-03-02 17:33:31
 -->
 <template>
-  <div class="shadow-box">
-    <h3 class="shadow-box__title">
+  <div class="shadow-box" :style="`width:${width}px;height:${height}px`">
+    <h3 v-if="title" class="shadow-box__title">
       <VerticalLine :line-color="lineColor" />{{ title }}
     </h3>
     <div class="shadow-box__content">
@@ -22,11 +22,19 @@ export default {
   props: {
     title: {
       type: String,
-      default: "名字",
+      default: "",
     },
     lineColor: {
       type: String,
       default: "#fcce48",
+    },
+    width: {
+      type: Number,
+      default: 754,
+    },
+    height: {
+      type: Number,
+      default: 610,
     },
   },
 };
@@ -34,10 +42,8 @@ export default {
 
 <style lang="less" scoped>
 .shadow-box {
-  width: 2.525rem /* 202/80 */;
-  height: 2.0375rem /* 163/80 */;
-  width: 754px;
-  height: 610px;
+  // width: 754px;
+  // height: 610px;
   background: rgba(25, 38, 67, 0.8);
   border: 0.025rem solid #1572be;
   box-shadow: 0px 0px 0.25rem 0px #005fac inset;
@@ -53,8 +59,6 @@ export default {
     color: transparent;
     text-align: left;
     margin-left: 50px;
-  }
-  &__content {
   }
 }
 </style>

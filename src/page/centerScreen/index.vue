@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-01 17:51:23
+ * @LastEditTime: 2021-03-02 13:09:44
 -->
 <template>
   <div class="center">
@@ -16,24 +16,7 @@
     </header>
     <main>
       <CenterLeft />
-      <div class="banner">
-        <img src="@/assets/image/banner/banner.png" alt="" class="banner" />
-        <img
-          src="@/assets/image/banner/banner-kid1.png"
-          alt=""
-          class="banner-kid"
-        />
-        <img
-          src="@/assets/image/banner/banner-kid2.png"
-          alt=""
-          class="banner-kid banner-kid__margin"
-        />
-        <img
-          src="@/assets/image/banner/banner-kid3.png"
-          alt=""
-          class="banner-kid"
-        />
-      </div>
+      <Banner />
       <CenterRight />
     </main>
   </div>
@@ -43,11 +26,13 @@
 // import { formatTime } from "@/utils/tootls";
 import CenterLeft from "@/components/centerLeft";
 import CenterRight from "@/components/centerRight";
+import Banner from "@/components/banner";
 export default {
   name: "Center",
   components: {
     CenterLeft,
     CenterRight,
+    Banner,
   },
   data() {
     return {
@@ -95,7 +80,7 @@ export default {
       width: 100%;
     }
     .title {
-      font-size: 0.3rem /* 24/80 */;
+      // font-size: 0.3rem /* 24/80 */;
       font-size: 90px;
       color: #ffffff;
       font-weight: 600;
@@ -116,17 +101,6 @@ export default {
   main {
     padding: 0 50px;
     display: flex;
-    .banner {
-      .banner {
-        width: 2430px;
-      }
-      .banner-kid {
-        width: 797px;
-      }
-      & kid__margin {
-        margin: 0 20px;
-      }
-    }
   }
 }
 </style>

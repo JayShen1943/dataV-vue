@@ -40,3 +40,12 @@ export function formatTime(time, fmt) {
         return fmt;
     }
 }
+// 数字格式化 千位数加逗号： 300,500,200
+export function formatter(number) {
+    const numbers = number.toString().split('').reverse()
+    const segs = []
+
+    while (numbers.length) segs.push(numbers.splice(0, 3).join(''))
+
+    return segs.join(',').split('').reverse().join('')
+}
