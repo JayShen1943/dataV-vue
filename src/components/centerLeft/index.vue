@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-02 14:23:49
+ * @LastEditTime: 2021-03-03 10:03:55
 -->
 <template>
   <div class="left-data">
@@ -120,7 +120,7 @@
       <ShadowBox title="颜色构成" line-color="#2DD3B3">
         <Echart
           :options="colorComposition()"
-          style="width: 80%; height: 450px"
+          style="width: 100%; height: 450px"
         />
       </ShadowBox>
     </div>

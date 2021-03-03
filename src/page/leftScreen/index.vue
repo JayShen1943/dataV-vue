@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-02 18:37:36
+ * @LastEditTime: 2021-03-03 11:04:18
 -->
 <template>
   <div class="left-screen">
@@ -28,10 +28,11 @@
               <div class="num">98</div>
               <div class="text">家</div>
             </div>
-            <dv-capsule-chart
+            <!-- <dv-capsule-chart
               :config="newbrand()"
               style="width: 350px; height: 300px"
-            />
+            /> -->
+            <Echart :options="newbrand()" style="width: 350px; height: 300px"/>
           </div>
           <div class="marken-rank">
             <div class="marken-rank-title">
@@ -118,8 +119,12 @@
                 <div class="chart-box-title">
                   <VerticalLine line-color="#2DD3B3" />订单金额构成
                 </div>
-                <dv-capsule-chart
+                <!-- <dv-capsule-chart
                   :config="amountComposition()"
+                  style="width: 100%; height: 460px; margin-top: 40px"
+                /> -->
+                   <Echart
+                  :options="amountComposition()"
                   style="width: 100%; height: 460px; margin-top: 40px"
                 />
               </div>

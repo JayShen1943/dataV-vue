@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-02 14:22:56
+ * @LastEditTime: 2021-03-03 11:43:01
  */
 // import echarts from "echarts";
 import {
@@ -164,18 +164,15 @@ export const orderAmount = () => ({
     yAxis: {
         type: "value",
         axisLine: {
-            lineStyle: {
-                color: "#010A1C",
-                width: 3, //这里是为了突出显示加上的
-            },
+            show: false,
+        },
+        splitLine: {
+            show: false,
         },
         axisLabel: {
-            textStyle: {
-                color: "#fff",
-                fontSize: 32,
-            },
+            show: false,
         },
-    },
+    },  
     //设置柱的宽度，要是数据太少，柱子太宽不美观~
     barWidth: 30,
     series: [{
@@ -208,13 +205,22 @@ export const orderGrowth = () => ({
                 fontSize: 32,
             },
         },
+        // 坐标轴设置
+        axisLine: {
+            show: true,
+            lineStyle: {
+                color: "#010A1C",
+                width: 3, //这里是为了突出显示加上的
+            },
+        }
     },
     yAxis: {
         type: "value",
         axisLine: {
+            show: true,
             lineStyle: {
                 color: "#010A1C",
-                width: 3, //这里是为了突出显示加上的
+                width: 2, //这里是为了突出显示加上的
             },
         },
         axisLabel: {
@@ -223,6 +229,14 @@ export const orderGrowth = () => ({
                 fontSize: 32,
             },
         },
+        // 背景分割线
+        splitLine: {
+            show: true,
+            interval: 0,
+            lineStyle: {
+                color: "#010A1C"
+            }
+        }
     },
     series: [{
         data: [120, 200, 150, 80, 70, 110, 130],
@@ -278,13 +292,6 @@ export const orderProductionType = () => ({
 
 // 服务类型 雷达图
 export const serviceType = () => ({
-    title: {
-        text: '基础雷达图'
-    },
-    tooltip: {},
-    legend: {
-        data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
-    },
     axisLine: {
         lineStyle: {
             color: 'green',
@@ -340,7 +347,7 @@ export const serviceType = () => ({
         //  color:'red',
         areaStyle: {
             normal: {
-                color: 'rgba(255,0,0,0.6)' // 填充的颜色。[ default: "#000" ]
+                color: '#FF7D7F' // 填充的颜色。[ default: "#000" ]
             }
         },
 
@@ -352,37 +359,51 @@ export const serviceType = () => ({
 })
 // 颜色构成--柱形图
 export const colorComposition = () => ({
-    title: {
-        text: "世界人口总量",
-        subtext: "数据来自网络",
-    },
     tooltip: {
         trigger: "axis",
         axisPointer: {
             type: "shadow",
         },
     },
-    legend: {
-        data: ["2011年", "2012年"],
-    },
     grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
+        left: "10%",
+        right: "10%",
+        bottom: "8%",
+        top: 0,
         containLabel: true,
     },
     xAxis: {
-        type: "value",
-        boundaryGap: [0, 0.01],
+        show: false,
     },
     yAxis: {
         type: "category",
-        data: ["巴西", "印尼", "美国", "印度", "中国", "世界人口(万)"],
+        data: ["巴西", "印尼", "美国", "印度", "中国", "世界"],
+        splitLine: {
+            show: false,
+        },
+        axisLabel: {
+            textStyle: {
+                color: "#C5E4FF",
+                fontSize: 32,
+            },
+        },
     },
     series: [{
         name: "2011年",
         type: "bar",
         data: [18203, 23489, 29034, 104970, 131744, 630230],
+        // 柱形图数据展示
+        label: {
+            show: true,
+            position: 'right',
+            valueAnimation: true,
+            color: '#C5E4FF'
+        },
+        // 柱形图背部阴影
+        showBackground: true,
+        backgroundStyle: {
+            color: '#0b1838'
+        }
     }, ],
     color: "#3DAAEB",
     barWidth: 19,

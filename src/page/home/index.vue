@@ -3,13 +3,14 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:06:12
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-02 15:25:20
+ * @LastEditTime: 2021-03-03 09:19:57
 -->
 <template>
   <div>
     <div class="jump-title" @click="jump('/centerScreen')">中央大屏</div>
     <div class="jump-title" @click="jump('/leftScreen')">左侧副屏</div>
     <div class="jump-title" @click="jump('/rightScreen')">右侧副屏</div>
+    <div class="iconfont icon-wujiaoxing"></div>
   </div>
 </template>
 

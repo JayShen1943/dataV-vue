@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "15794196",
+      "name": "五角星",
+      "font_class": "wujiaoxing",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    }
+  ]
+}
