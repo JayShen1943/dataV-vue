@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-03 10:42:02
+ * @LastEditTime: 2021-03-04 14:16:35
 -->
 <template>
   <div class="right-screen">
@@ -13,7 +13,7 @@
         alt=""
         class="header-img"
       />
-      <div class="title"><VerticalLine />供应商</div>
+      <div class="title"><VerticalLine />供应商<VerticalLine /></div>
     </header>
     <main>
       <div class="right-screen-row1">

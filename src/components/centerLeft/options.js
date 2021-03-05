@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-03 11:43:01
+ * @LastEditTime: 2021-03-05 10:55:26
  */
 // import echarts from "echarts";
 import {
@@ -11,28 +11,28 @@ import {
     pieColor2
 } from "@/utils/echartColor";
 // 品牌商类型--饼图
-export const brandType = () => ({
-    data: [{
-            name: "周口",
-            value: 55,
-        },
-        {
-            name: "南阳",
-            value: 120,
-        },
-        {
-            name: "西峡",
-            value: 78,
-        },
-        {
-            name: "驻马店",
-            value: 66,
-        },
-        {
-            name: "新乡",
-            value: 80,
-        },
-    ],
+export const brandType = (data = [{
+        name: "周口",
+        value: 55,
+    },
+    {
+        name: "南阳",
+        value: 120,
+    },
+    {
+        name: "西峡",
+        value: 78,
+    },
+    {
+        name: "驻马店",
+        value: 66,
+    },
+    {
+        name: "新乡",
+        value: 80,
+    },
+]) => ({
+    data: data,
     lineWidth: 50,
     radius: "70%",
     activeRadius: "75%",
@@ -48,61 +48,61 @@ export const brandType = () => ({
     },
 })
 // 品牌商规模--柱状图
-export const brandSize = () => ({
-    data: [{
-            name: "南阳",
-            value: 167,
-        },
-        {
-            name: "周口",
-            value: 123,
-        },
-        {
-            name: "漯河",
-            value: 98,
-        },
-        {
-            name: "郑州",
-            value: 75,
-        },
-        {
-            name: "西峡",
-            value: 66,
-        },
-        {
-            name: "西峡1",
-            value: 66,
-        },
-    ],
+export const brandSize = (data = [{
+        name: "南阳",
+        value: 167,
+    },
+    {
+        name: "周口",
+        value: 123,
+    },
+    {
+        name: "漯河",
+        value: 98,
+    },
+    {
+        name: "郑州",
+        value: 75,
+    },
+    {
+        name: "西峡",
+        value: 66,
+    },
+    {
+        name: "西峡1",
+        value: 66,
+    },
+]) => ({
+    data: data,
     color: pieColor2,
     unit: "占比",
     showValue: true,
 })
 // 地域分布--饼图
-export const geographicalDistribution = () => ({
+export const geographicalDistribution = (data = [{
+        name: "南阳",
+        value: 167,
+    },
+    {
+        name: "周口",
+        value: 123,
+    },
+    {
+        name: "漯河",
+        value: 98,
+    },
+    {
+        name: "郑州",
+        value: 75,
+    },
+    {
+        name: "西峡",
+        value: 66,
+    },
+]) => ({
     radius: "70%",
     activeRadius: "80%",
-    data: [{
-            name: "南阳",
-            value: 167,
-        },
-        {
-            name: "周口",
-            value: 123,
-        },
-        {
-            name: "漯河",
-            value: 98,
-        },
-        {
-            name: "郑州",
-            value: 75,
-        },
-        {
-            name: "西峡",
-            value: 66,
-        },
-    ],
+    data: data,
     color: pieColor2,
 })
 // 款式分类--百分比环图
@@ -149,7 +149,7 @@ export const styleClassification = (data, color) => ({
 
 });
 // 订单金额--柱状图
-export const orderAmount = () => ({
+export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
     xAxis: {
         type: "category",
         data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -172,11 +172,11 @@ export const orderAmount = () => ({
         axisLabel: {
             show: false,
         },
-    },  
+    },
     //设置柱的宽度，要是数据太少，柱子太宽不美观~
     barWidth: 30,
     series: [{
-        data: [120, 150, 80, 70, 110, 130],
+        data: data,
         type: 'bar',
         itemStyle: {
             normal: {
@@ -190,6 +190,9 @@ export const orderAmount = () => ({
                     formatter: '{b}\n{c}'
                 }
             }
+        },
+        animationDelay: function (idx) {
+            return idx * 40;
         },
     }]
 })
@@ -247,7 +250,23 @@ export const orderGrowth = () => ({
     }, ]
 })
 // 订单生产类型--饼图
-export const orderProductionType = () => ({
+export const orderProductionType = (data = [{
+        value: 735,
+        name: "中国"
+    },
+    {
+        value: 510,
+        name: "美国"
+    },
+    {
+        value: 434,
+        name: "发过"
+    },
+    {
+        value: 335,
+        name: "因果"
+    }
+]) => ({
     tooltip: {
         trigger: "item",
     },
@@ -259,27 +278,7 @@ export const orderProductionType = () => ({
         type: "pie",
         radius: "80%",
         color: pieColor,
-        data: [{
-                value: 1048,
-                name: "搜索引擎"
-            },
-            {
-                value: 735,
-                name: "直接访问"
-            },
-            {
-                value: 580,
-                name: "邮件营销"
-            },
-            {
-                value: 484,
-                name: "联盟广告"
-            },
-            {
-                value: 300,
-                name: "视频广告"
-            },
-        ],
+        data: data,
         emphasis: {
             itemStyle: {
                 shadowBlur: 10,

@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 11:36:38
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-01 18:15:08
+ * @LastEditTime: 2021-03-05 09:52:46
 -->
 <template>
   <div
@@ -39,6 +39,6 @@ export default {
 <style lang="less" scoped>
 .vertical-line {
   display: inline-block;
-  vertical-align: middle;
+  // vertical-align: middle;
 }
 </style>

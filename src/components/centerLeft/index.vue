@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-03 10:03:55
+ * @LastEditTime: 2021-03-05 11:01:43
 -->
 <template>
   <div class="left-data">
@@ -184,9 +184,22 @@ export default {
           color: "#664CC7",
         },
       ],
+      timer: null, // 定时器
+      leftLoading: true,
     };
   },
-  mounted() {},
+  created() {},
+  mounted() {
+    // this.timer = setInterval(() => {
+    //   console.error("定时器执行");
+    //   this.getOrderProductionType();
+    // }, 3000);
+  },
+  // beforeDestroy() {
+  //   clearInterval(this.timer); // 清除定时器
+  //   this.timer = null;
+  // },
+  methods: {},
 };
 </script>
 

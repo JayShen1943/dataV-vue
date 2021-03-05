@@ -3,13 +3,13 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-02 13:09:44
+ * @LastEditTime: 2021-03-04 14:13:50
 -->
 <template>
   <div class="center">
     <header>
       <img src="@/assets/image/banner/header2x.png" alt="" class="header-img" />
-      <div class="title"><VerticalLine />得体智能供应链服务平台</div>
+      <div class="title"><VerticalLine />得体智能供应链服务平台<VerticalLine /></div>
       <div class="time">
         <!-- {{ time.dateYear }} {{ time.dateWeek }} {{ time.dateDay }} -->
       </div>
