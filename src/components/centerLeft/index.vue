@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 11:01:43
+ * @LastEditTime: 2021-03-05 20:45:13
 -->
 <template>
   <div class="left-data">
@@ -67,29 +67,61 @@
         </div>
       </ShadowBox>
     </div>
-    <div class="left-row2">
+    <div v-if="styleClassificationData.length" class="left-row2">
       <ShadowBox title="款式分类" line-color="#FCCE48 ">
         <div class="left-row2-box1__flex">
-          <div class="left-row2-box1__flex__title">男装</div>
+          <div class="left-row2-box1__flex__title">
+            {{ styleClassificationData[0].gender }}
+          </div>
           <Echart
-            :options="styleClassification('', ['#FCCE48', '#1765A5'])"
+            :options="
+              styleClassification(
+                styleClassificationData[0].num,
+                ['#FCCE48', '#1765A5'],
+                styleClassificationTotal
+              )
+            "
             style="width: 180px; height: 180px"
           />
-          <div class="left-row2-box1__flex__title">女装</div>
+          <div class="left-row2-box1__flex__title">
+            {{ styleClassificationData[1].gender }}
+          </div>
           <Echart
-            :options="styleClassification('', ['#FF7D7F', '#1765A5'])"
+            :options="
+              styleClassification(
+                styleClassificationData[1].num,
+                ['#FF7D7F', '#1765A5'],
+                styleClassificationTotal
+              )
+            "
             style="width: 180px; height: 180px"
           />
         </div>
         <div class="left-row2-box1__flex">
-          <div class="left-row2-box1__flex__title">男童</div>
+          <div class="left-row2-box1__flex__title">
+            {{ styleClassificationData[2].gender }}
+          </div>
           <Echart
-            :options="styleClassification('', ['#2DD3B3', '#1765A5'])"
+            :options="
+              styleClassification(
+                styleClassificationData[2].num,
+                ['#2DD3B3', '#1765A5'],
+                styleClassificationTotal
+              )
+            "
             style="width: 180px; height: 180px"
           />
-          <div class="left-row2-box1__flex__title">女童</div>
+          <div class="left-row2-box1__flex__title">
+            {{ styleClassificationData[3].gender }}
+          </div>
           <Echart
-            :options="styleClassification('', ['#664CC7', '#1765A5'])"
+            :options="
+              styleClassification(
+                styleClassificationData[3].num,
+                ['#664CC7', '#1765A5'],
+                styleClassificationTotal
+              )
+            "
             style="width: 180px; height: 180px"
           />
         </div>
@@ -102,24 +134,27 @@
       </ShadowBox>
       <ShadowBox title="订单增长情况" line-color="#2DD3B3">
         <Echart
-          :options="orderGrowth()"
+          :options="orderGrowth(orderGrowthData)"
           style="width: 90%; height: 380px; margin-left: 50px"
         />
       </ShadowBox>
     </div>
     <div class="left-row3">
       <ShadowBox title="服务类型" line-color="#2DD3B3">
-        <Echart :options="serviceType()" style="width: 90%; height: 380px" />
+        <Echart
+          :options="serviceType(serviceTypeData)"
+          style="width: 90%; height: 380px"
+        />
       </ShadowBox>
       <ShadowBox title="订单生产类型" line-color="#664CC7">
         <Echart
-          :options="orderProductionType()"
+          :options="orderProductionType(orderProductionTypeData)"
           style="width: 100%; height: 450px"
         />
       </ShadowBox>
       <ShadowBox title="颜色构成" line-color="#2DD3B3">
         <Echart
-          :options="colorComposition()"
+          :options="colorComposition(colorCompositionData)"
           style="width: 100%; height: 450px"
         />
       </ShadowBox>
@@ -128,6 +163,7 @@
 </template>
 
 <script>
+import { findCenterScreenDataLeft } from "@/service/api";
 import {
   serviceType,
   brandType,
@@ -186,9 +222,18 @@ export default {
       ],
       timer: null, // 定时器
       leftLoading: true,
+      brandTypeData: [], // 品牌商类型
+      colorCompositionData: [], // 颜色构成
+      styleClassificationData: [], // 款式分类
+      styleClassificationTotal: 0, // 款式分类总数
+      orderGrowthData: [], // 订单增长情况
+      serviceTypeData: [], // 服务类型
+      orderProductionTypeData: [], // 订单生产类型
     };
   },
-  created() {},
+  created() {
+    this.getCenterScreenDataLeft();
+  },
   mounted() {
     // this.timer = setInterval(() => {
     //   console.error("定时器执行");
@@ -199,7 +244,24 @@ export default {
   //   clearInterval(this.timer); // 清除定时器
   //   this.timer = null;
   // },
-  methods: {},
+  methods: {
+    async getCenterScreenDataLeft() {
+      const RES = await findCenterScreenDataLeft();
+      if (RES && RES.data) {
+        const DATA = RES.data;
+        // console.log(RES.data);
+        // this.brandTypeData = RES.data.channeData;
+        this.colorCompositionData = DATA.colorPercentData;
+        this.styleClassificationData = DATA.designClassData;
+        DATA.designClassData.forEach((i) => {
+          this.styleClassificationTotal += i.num;
+        });
+        this.orderGrowthData = DATA.orderMonthData;
+        this.serviceTypeData = DATA.requirementTypeData;
+        this.orderProductionTypeData = DATA.ooperationTypeData;
+      }
+    },
+  },
 };
 </script>
 

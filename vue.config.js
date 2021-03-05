@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 23:07:27
  * @LastEditors: JayShen
- * @LastEditTime: 2021-02-28 14:52:25
+ * @LastEditTime: 2021-03-05 18:18:27
  */
 const path = require('path')
 
@@ -12,7 +12,17 @@ function resolve(dir) {
 }
 module.exports = {
     devServer: {
-        port: 1943
+        port: 8888,
+        proxy: {
+            "/api": {
+                target: "http://192.168.20.25:8888",
+                changeOrigin: true,
+                "secure": false,
+                pathRewrite: {
+                    "^/api": "", // 重写路径
+                },
+            },
+        }
     },
     chainWebpack: (config) => {
         config.resolve.alias

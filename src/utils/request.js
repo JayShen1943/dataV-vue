@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 21:36:49
  * @LastEditors: JayShen
- * @LastEditTime: 2021-02-28 14:55:20
+ * @LastEditTime: 2021-03-05 18:14:44
  */
 import {
     getToken,
@@ -14,14 +14,14 @@ import promise from 'es6-promise'
 promise.polyfill()
 
 const service = axios.create({
-      baseURL: process.env.VUE_APP_API,
-    timeout: 10000
+    baseURL: '',
+    timeout: 30000
 })
 
 service.interceptors.request.use(config => {
     config.headers['Access-Control-Allow-Origin'] = '*'
-    config.headers['Authorization'] = getToken()
-    config.headers['Actcode'] = getCode()
+    // config.headers['Authorization'] = getToken()
+    // config.headers['Actcode'] = getCode()
     return config
 }, error => {
     Promise.reject(error)
@@ -29,6 +29,7 @@ service.interceptors.request.use(config => {
 
 service.interceptors.response.use(
     response => response,
+
     error => {
         let msg = ''
         if (error.message.includes('timeout')) {
@@ -36,12 +37,7 @@ service.interceptors.response.use(
         } else {
             msg = '服务器出错了！'
         }
-        // Message({
-        //   message: msg,
-        //   type: 'error',
-        //   duration: 5 * 1000
-        // })
-        console.error(msg);
+
         return Promise.reject(error)
     }
 )

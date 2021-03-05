@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-02 11:10:38
+ * @LastEditTime: 2021-03-05 20:54:27
 -->
 <template>
   <div class="banner">
@@ -64,6 +64,7 @@
 
 <script>
 import { formatter } from "@/utils/tootls";
+import { findCenterScreenDataMiddle } from "@/service/api";
 export default {
   name: "Banner",
   data() {
@@ -85,7 +86,27 @@ export default {
       formatter,
     };
   },
-  methods: {},
+  created() {
+    this.getCenterScreenDataMiddle();
+  },
+  methods: {
+    async getCenterScreenDataMiddle() {
+      const RES = await findCenterScreenDataMiddle();
+      if (RES) {
+        const DATA = RES.data.centerData;
+        this.topNformation[0].value = parseInt(DATA.transactionTotal);
+        this.topNformation[1].value = DATA.productionTotal;
+        this.topNformation[2].value = DATA.customerTotal;
+        this.bottomNformation[0].value = DATA.ppsCount;
+        this.bottomNformation[1].value = DATA.fxsCount;
+        this.bottomNformation[2].value = DATA.designerCount;
+        this.bottomNformation[3].value = DATA.patternSupplierCount;
+        this.bottomNformation[4].value = DATA.fabricSupplierCount;
+        this.bottomNformation[5].value = DATA.techniqueSupplierCount;
+        this.bottomNformation[6].value = DATA.productionSupplierCount;
+      }
+    },
+  },
 };
 </script>
 

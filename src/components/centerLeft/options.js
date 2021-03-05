@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 10:55:26
+ * @LastEditTime: 2021-03-05 20:41:29
  */
 // import echarts from "echarts";
 import {
@@ -106,7 +106,7 @@ export const geographicalDistribution = (data = [{
     color: pieColor2,
 })
 // 款式分类--百分比环图
-export const styleClassification = (data, color) => ({
+export const styleClassification = (data, color, total) => ({
     color: color,
     legend: {
         show: false
@@ -127,21 +127,21 @@ export const styleClassification = (data, color) => ({
             show: false
         },
         data: [{
-                value: 5,
+                value: data,
                 name: '直接访问',
                 label: {
                     normal: {
                         show: true,
                         formatter: '{d}%',
                         textStyle: {
-                            fontSize: 36,
+                            fontSize: 20,
                             fontWeight: 'bolder',
                         },
                     }
                 },
             },
             {
-                value: 120,
+                value: total,
                 name: '邮件营销'
             }
         ]
@@ -197,10 +197,10 @@ export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
     }]
 })
 // 订单增长情况
-export const orderGrowth = () => ({
+export const orderGrowth = (data) => ({
     xAxis: {
         type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        data: data.map(item => item.orderMonth),
         axisLabel: {
             show: true,
             textStyle: {
@@ -242,7 +242,7 @@ export const orderGrowth = () => ({
         }
     },
     series: [{
-        data: [120, 200, 150, 80, 70, 110, 130],
+        data: data.map(item => item.num),
         type: "bar",
         color: "#60CAAE",
         barWidth: 12,
@@ -274,11 +274,16 @@ export const orderProductionType = (data = [{
         show: false,
     },
     series: [{
-        name: "访问来源",
+        // name: "访问来源",
         type: "pie",
         radius: "80%",
         color: pieColor,
-        data: data,
+        data: data.map(item => {
+            return {
+                value: item.num,
+                name: item.cooperationType
+            }
+        }),
         emphasis: {
             itemStyle: {
                 shadowBlur: 10,
@@ -290,7 +295,7 @@ export const orderProductionType = (data = [{
 })
 
 // 服务类型 雷达图
-export const serviceType = () => ({
+export const serviceType = (data) => ({
     axisLine: {
         lineStyle: {
             color: 'green',
@@ -318,27 +323,12 @@ export const serviceType = () => ({
                 color: '#1765A5', // 设置网格的颜色
             },
         },
-        indicator: [{
-                name: '设计',
-                max: 6500
-            },
-            {
-                name: '其他',
-                max: 16000
-            },
-            {
-                name: '成衣',
-                max: 30000
-            },
-            {
-                name: '加工',
-                max: 38000
-            },
-            {
-                name: '板房 ',
-                max: 52000
-            },
-        ]
+        indicator: data.map(item => {
+            return {
+                name: item.requirementTypeName,
+                max: 1
+            }
+        })
     },
     series: [{
         name: '预算 vs 开销（Budget vs spending）',
@@ -351,13 +341,13 @@ export const serviceType = () => ({
         },
 
         data: [{
-            value: [4300, 10000, 28000, 35000, 50000, 19000],
+            value: data.map(item => item.percent),
             name: '预算分配（Allocated Budget）',
         }, ]
     }]
 })
 // 颜色构成--柱形图
-export const colorComposition = () => ({
+export const colorComposition = (colorCompositionData) => ({
     tooltip: {
         trigger: "axis",
         axisPointer: {
@@ -376,7 +366,9 @@ export const colorComposition = () => ({
     },
     yAxis: {
         type: "category",
-        data: ["巴西", "印尼", "美国", "印度", "中国", "世界"],
+        data: colorCompositionData.map((item) => {
+            return item.cooperationType
+        }),
         splitLine: {
             show: false,
         },
@@ -390,13 +382,16 @@ export const colorComposition = () => ({
     series: [{
         name: "2011年",
         type: "bar",
-        data: [18203, 23489, 29034, 104970, 131744, 630230],
+        data: colorCompositionData.map((item) => {
+            return item.percent * 100
+        }),
         // 柱形图数据展示
         label: {
             show: true,
             position: 'right',
             valueAnimation: true,
-            color: '#C5E4FF'
+            color: '#C5E4FF',
+            formatter: '{c}%'
         },
         // 柱形图背部阴影
         showBackground: true,

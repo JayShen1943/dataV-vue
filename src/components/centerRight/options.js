@@ -3,14 +3,14 @@
  * @Author: JayShen
  * @Date: 2021-03-02 11:11:21
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-03 09:39:17
+ * @LastEditTime: 2021-03-05 21:36:05
  */
 import {
     pieColor,
     // pieColor2
 } from "@/utils/echartColor";
 // 面料供应商--饼图嵌套
-export const fabricSupplier = () => ({
+export const fabricSupplier = (data) => ({
     tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -19,7 +19,6 @@ export const fabricSupplier = () => ({
         show: false
     },
     series: [{
-            name: '访问来源',
             type: 'pie',
             selectedMode: 'single',
             color: ["#FF7D7F", "#E96074", "#E7A976", "#FCCE48"],
@@ -32,19 +31,12 @@ export const fabricSupplier = () => ({
             labelLine: {
                 show: false
             },
-            data: [{
-                    value: 1548,
-                    name: '搜索引擎'
-                },
-                {
-                    value: 775,
-                    name: '直达'
-                },
-                {
-                    value: 679,
-                    name: '营销广告',
+            data: data.map(item => {
+                return {
+                    value: item.num,
+                    name: item.sampleTypeName
                 }
-            ]
+            })
         },
         {
             name: '访问来源',
@@ -58,39 +50,12 @@ export const fabricSupplier = () => ({
                 show: false,
                 formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
             },
-            data: [{
-                    value: 1048,
-                    name: '百度'
-                },
-                {
-                    value: 335,
-                    name: '直达'
-                },
-                {
-                    value: 310,
-                    name: '邮件营销'
-                },
-                {
-                    value: 251,
-                    name: '谷歌'
-                },
-                {
-                    value: 234,
-                    name: '联盟广告'
-                },
-                {
-                    value: 147,
-                    name: '必应'
-                },
-                {
-                    value: 135,
-                    name: '视频广告'
-                },
-                {
-                    value: 102,
-                    name: '其他'
+            data: data.map(item => {
+                return {
+                    value: item.num,
+                    name: item.sampleTypeName
                 }
-            ]
+            })
         }
     ]
 })
@@ -122,57 +87,40 @@ export const fabricSupplierDistributed = () => ({
     showValue: true
 })
 // 设计师满意度排名1
-export const designerRank = () => ({
-    header: ['姓名', '擅长方向', '满意度'],
+export const designerRank = (data) => ({
+    header: ['姓名', '满意度'],
     headerBGC: '#15B1AF',
     // oddRowBGC: '#0B86C2',
     // evenRowBGC: '',
-    data: [
-        ['行1列1', '行1列2', '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行2列1', '行2列2', '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行3列1', '行3列2', '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行4列1', '行4列2', '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行5列1', '行5列2', '<span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行6列1', '行6列2', ' <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行7列1', '行7列2', ' <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行8列1', '行8列2', ' <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行9列1', '行9列2', ' <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行10列1', '行10列2', '<span class="iconfont icon-wujiaoxing"></span>']
-    ]
+    data: data.map(item => {
+        return [
+            item.designer,
+            '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+        ]
+    })
 })
 // 设计师满意度排名2
-export const designerRank2 = () => ({
-    header: ['名称', '区域', '满意度'],
+export const designerRank2 = (data) => ({
+    header: ['名称', '满意度'],
     headerBGC: '#67A6E0',
-    data: [
-        ['行1列1', '行1列2', '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行2列1', '行2列2', '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行3列1', '行3列2', '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行4列1', '行4列2', '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行5列1', '行5列2', '<span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行6列1', '行6列2', ' <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行7列1', '行7列2', ' <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行8列1', '行8列2', ' <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行9列1', '行9列2', ' <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'],
-        ['行10列1', '行10列2', '<span class="iconfont icon-wujiaoxing"></span>']
-    ]
+    data: data.map(item => {
+        return [
+            item.designer,
+            '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+        ]
+    })
 })
 // 工厂接单排名
-export const factoryRank = () => ({
-    header: ['名称', '区域', '排名'],
+export const factoryRank = (data) => ({
+    header: ['名称', '数量', '排名'],
     headerBGC: '#E7A976',
-    data: [
-        ['行1列1', '行1列2', '行1列3'],
-        ['行2列1', '行2列2', '行2列3'],
-        ['行3列1', '行3列2', '行3列3'],
-        ['行4列1', '行4列2', '行4列3'],
-        ['行5列1', '行5列2', '行5列3'],
-        ['行6列1', '行6列2', '行6列3'],
-        ['行7列1', '行7列2', '行7列3'],
-        ['行8列1', '行8列2', '行8列3'],
-        ['行9列1', '行9列2', '行9列3'],
-        ['行10列1', '行10列2', '行10列3']
-    ]
+    data: data.map(item => {
+        return [
+            item.productionSupplierName,
+            item.orderDetailNum,
+            item.num,
+        ]
+    })
 })
 // 工艺商--饼图
 export const craftsman = () => ({
@@ -233,21 +181,20 @@ export const sellers = (data, color) => ({
             show: false
         },
         data: [{
-                value: 5,
-                name: '直接访问',
+                value: data,
                 label: {
                     normal: {
                         show: true,
                         formatter: '{d}%',
                         textStyle: {
-                            fontSize: 36,
+                            fontSize: 22,
                             fontWeight: 'bolder',
                         },
                     }
                 },
             },
             {
-                value: 120,
+                value: 118,
                 name: '邮件营销'
             }
         ]
@@ -255,19 +202,8 @@ export const sellers = (data, color) => ({
 
 });
 // 各地区域工厂产能分布
-export const factoryDistribution = () => ({
-    header: ['名称', '区域', '排名'],
+export const factoryDistribution = (data) => ({
+    header: ['区域', '企业数量', '总产能(件)', '设备联网数(台)', '就业人数'],
     headerBGC: '#15B1AF',
-    data: [
-        ['行1列1', '行1列2', '行1列3'],
-        ['行2列1', '行2列2', '行2列3'],
-        ['行3列1', '行3列2', '行3列3'],
-        ['行4列1', '行4列2', '行4列3'],
-        ['行5列1', '行5列2', '行5列3'],
-        ['行6列1', '行6列2', '行6列3'],
-        ['行7列1', '行7列2', '行7列3'],
-        ['行8列1', '行8列2', '行8列3'],
-        ['行9列1', '行9列2', '行9列3'],
-        ['行10列1', '行10列2', '行10列3']
-    ]
+    
 })
