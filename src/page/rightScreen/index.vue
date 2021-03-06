@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-04 14:16:35
+ * @LastEditTime: 2021-03-06 14:20:25
 -->
 <template>
   <div class="right-screen">
@@ -75,7 +75,7 @@
           :height="702"
         >
           <dv-scroll-board
-            :config="designTable()"
+            :config="designTable(designTableData)"
             style="width: 95%; height: 500px; margin-left: 40px"
           />
         </ShadowBox>
@@ -86,7 +86,7 @@
           :height="702"
         >
           <dv-scroll-board
-            :config="purchaseTable()"
+            :config="purchaseTable(purchaseTableData)"
             style="width: 95%; height: 500px; margin-left: 40px"
           />
         </ShadowBox>
@@ -99,7 +99,7 @@
           :height="749"
         >
           <dv-scroll-board
-            :config="newOrderTable()"
+            :config="newOrderTable(newOrderTableData)"
             style="width: 95%; height: 500px; margin-left: 40px"
           />
         </ShadowBox>
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import { findRightScreenData } from "@/service/api";
 import { designTable, purchaseTable, newOrderTable } from "./options";
 import { formatter } from "@/utils/tootls";
 export default {
@@ -118,52 +119,75 @@ export default {
       designTable,
       purchaseTable,
       newOrderTable,
-      digitalFlop1: {
-        number: [100335],
-        content: "{nt}",
-        formatter,
-        style: {
-          fontSize: 90,
-          fill: "#FCCE48",
-        },
-      },
-      digitalFlop2: {
-        number: [100335],
-        content: "{nt}",
-        formatter,
-        style: {
-          fontSize: 90,
-          fill: "#FCCE48",
-        },
-      },
-      digitalFlop3: {
-        number: [100335],
-        content: "{nt}",
-        formatter,
-        style: {
-          fontSize: 90,
-          fill: "#FF7D7F",
-        },
-      },
-      digitalFlop4: {
-        number: [100335],
-        content: "{nt}",
-        formatter,
-        style: {
-          fontSize: 90,
-          fill: "#2DD3B3",
-        },
-      },
-      digitalFlop5: {
-        number: [100335],
-        content: "{nt}",
-        formatter,
-        style: {
-          fontSize: 90,
-          fill: "#2DD3B3",
-        },
-      },
+      digitalFlop1: {},
+      digitalFlop2: {},
+      digitalFlop3: {},
+      digitalFlop4: {},
+      digitalFlop5: {},
+      purchaseTableData: [], // 面辅料采购一览表
+      designTableData: [], // 设计打版进度
+      newOrderTableData: [], // 订单一览表
     };
+  },
+  created() {
+    this.getRightScreenData();
+  },
+  methods: {
+    async getRightScreenData() {
+      const RES = await findRightScreenData();
+      if (RES && RES.data) {
+        console.log(RES.data);
+        const DATA = RES.data;
+        this.purchaseTableData = DATA.purchaseOrderData;
+        this.designTableData = DATA.designProcessData;
+        this.newOrderTableData = DATA.productionProcessData;
+        this.digitalFlop1 = {
+          number: [DATA.supplierData.sampleOutsourcingCount],
+          content: "{nt}",
+          formatter,
+          style: {
+            fontSize: 90,
+            fill: "#FCCE48",
+          },
+        };
+        this.digitalFlop2 = {
+          number: [DATA.supplierData.purchaseCount],
+          content: "{nt}",
+          formatter,
+          style: {
+            fontSize: 90,
+            fill: "#FCCE48",
+          },
+        };
+        this.digitalFlop3 = {
+          number: [DATA.supplierData.productionQuantity],
+          content: "{nt}",
+          formatter,
+          style: {
+            fontSize: 90,
+            fill: "#FF7D7F",
+          },
+        };
+        this.digitalFlop4 = {
+          number: [DATA.supplierData.inRepertoryQuantity],
+          content: "{nt}",
+          formatter,
+          style: {
+            fontSize: 90,
+            fill: "#2DD3B3",
+          },
+        };
+        this.digitalFlop5 = {
+          number: [DATA.supplierData.outRepertoryQuantity],
+          content: "{nt}",
+          formatter,
+          style: {
+            fontSize: 90,
+            fill: "#2DD3B3",
+          },
+        };
+      }
+    },
   },
 };
 </script>
@@ -196,7 +220,7 @@ export default {
     padding: 50px;
     .right-screen-row1 {
       display: flex;
-      justify-content: space-between;
+      // justify-content: space-between;
       .unit {
         background: linear-gradient(0deg, #1882d8 1%, #73c0ff 99%);
         font-size: 40px;
@@ -210,12 +234,12 @@ export default {
     }
     .right-screen-row2 {
       display: flex;
-      justify-content: space-between;
+      // justify-content: space-between;
       margin-top: 20px;
     }
     .right-screen-row3 {
       display: flex;
-      justify-content: space-between;
+      // justify-content: space-between;
       margin-top: 20px;
     }
   }

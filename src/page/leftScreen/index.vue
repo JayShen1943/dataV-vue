@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-04 14:14:17
+ * @LastEditTime: 2021-03-06 11:00:18
 -->
 <template>
   <div class="left-screen">
@@ -25,14 +25,17 @@
         >
           <div class="new-brand">
             <div class="runden">
-              <div class="num">98</div>
+              <div class="num">{{ newbrandTotal }}</div>
               <div class="text">家</div>
             </div>
             <!-- <dv-capsule-chart
               :config="newbrand()"
               style="width: 350px; height: 300px"
             /> -->
-            <Echart :options="newbrand()" style="width: 350px; height: 300px"/>
+            <Echart
+              :options="newbrand(newbrandData)"
+              style="width: 350px; height: 300px"
+            />
           </div>
           <div class="marken-rank">
             <div class="marken-rank-title">
@@ -57,7 +60,7 @@
             </div>
             <div></div>
             <dv-scroll-board
-              :config="newMerchants()"
+              :config="newMerchants(newMerchantsData)"
               style="width: 90%; height: 550px; margin-left: 50px"
             />
           </div>
@@ -79,7 +82,7 @@
             :width="438"
             :height="433"
           >
-            <dv-digital-flop :config="config" />
+            <dv-digital-flop :config="config2" />
           </ShadowBox>
           <ShadowBox
             title="· 新增订单金额"
@@ -88,7 +91,7 @@
             :height="433"
           >
             <dv-digital-flop
-              :config="config"
+              :config="config3"
               style="width: 100%; position: relative; top: -80px"
             />
           </ShadowBox>
@@ -101,7 +104,7 @@
                   <VerticalLine line-color="#6BB5FE" />款式分类
                 </div>
                 <dv-active-ring-chart
-                  :config="styleClassification()"
+                  :config="styleClassification(styleClassificationData)"
                   class="left-row1-box1__chart"
                   style="width: 100%; height: 460px; margin-top: 40px"
                 />
@@ -111,7 +114,7 @@
                   <VerticalLine line-color="#A269CD" />服务类型
                 </div>
                 <Echart
-                  :options="serviceType()"
+                  :options="serviceType(serviceTypeData)"
                   style="width: 100%; height: 460px; margin-top: 40px"
                 />
               </div>
@@ -123,8 +126,8 @@
                   :config="amountComposition()"
                   style="width: 100%; height: 460px; margin-top: 40px"
                 /> -->
-                   <Echart
-                  :options="amountComposition()"
+                <Echart
+                  :options="amountComposition(amountCompositionData)"
                   style="width: 100%; height: 460px; margin-top: 40px"
                 />
               </div>
@@ -134,7 +137,7 @@
                 <VerticalLine line-color="#2DD3B3" />新增订单一览表
               </div>
               <dv-scroll-board
-                :config="newOrderForm()"
+                :config="newOrderForm(newOrderFormData)"
                 style="width: 95%; height: 550px; margin-left: 40px"
               />
             </div>
@@ -146,6 +149,7 @@
 </template>
 
 <script>
+import { findLeftScreenData } from "@/service/api";
 import {
   newbrand,
   newMerchants,
@@ -164,15 +168,92 @@ export default {
       serviceType,
       amountComposition,
       newOrderForm,
-      config: {
-        number: [100335],
-        content: "{nt}个",
-        style: {
-          fontSize: 90,
-          fill: "#3de7c9",
-        },
-      },
+      config: {},
+      config2: {},
+      config3: {},
+      newbrandData: [], // 新增品牌商
+      newbrandTotal: 0, // 新增品牌商数量
+      styleClassificationData: [], // 款式分类
+      serviceTypeData: [], // 服务类型
+      newMerchantsData: [], // 新增入驻品牌
+      newOrderFormData: [], // 新增订单一览表
+      amountCompositionData: [], // 订单金额构成
     };
+  },
+  created() {
+    this.getLeftScreenData();
+  },
+  methods: {
+    async getLeftScreenData() {
+      const RES = await findLeftScreenData();
+      if (RES && RES.data) {
+        const DATA = RES.data;
+        const ppsChannelData = DATA.ppsChannelData[0];
+        this.newbrandData = [
+          {
+            value: ppsChannelData["其他"],
+            name: "其他",
+          },
+          {
+            value: ppsChannelData["电商"],
+            name: "电商",
+          },
+
+          {
+            value: ppsChannelData["直播"],
+            name: "直播",
+          },
+          {
+            value: ppsChannelData["跨境"],
+            name: "跨境",
+          },
+        ];
+        this.newbrandTotal =
+          ppsChannelData["其他"] +
+          ppsChannelData["电商"] +
+          ppsChannelData["直播"] +
+          ppsChannelData["跨境"];
+        this.config.number = [DATA.recentOrderData[0].orderNum];
+        this.config = {
+          number: [DATA.recentOrderData[0].orderNum],
+          content: "{nt}个",
+          style: {
+            fontSize: 90,
+            fill: "#3de7c9",
+          },
+        };
+        this.config2 = {
+          number: [DATA.recentOrderData[0].orderQuantity],
+          content: "{nt}个",
+          style: {
+            fontSize: 90,
+            fill: "#3de7c9",
+          },
+        };
+        this.config3 = {
+          number: [DATA.recentOrderData[0].orderTotalPrice],
+          content: "{nt}元",
+          style: {
+            fontSize: 90,
+            fill: "#3de7c9",
+          },
+        };
+        this.styleClassificationData = DATA.designClassData;
+        this.serviceTypeData = DATA.serviceTypeData;
+        this.newMerchantsData = DATA.ppsRegisterData;
+        this.newOrderFormData = DATA.demandOrderData;
+        this.amountCompositionData = [
+          {
+            value: DATA.priceRangeData[0]["50-100万"],
+            name: "50-100万",
+          },
+          {
+            value: DATA.priceRangeData[0]["100万以上"],
+            name: "100万以上",
+          },
+        ];
+      }
+    },
   },
 };
 </script>

@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 11:11:21
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 21:36:05
+ * @LastEditTime: 2021-03-06 10:08:33
  */
 import {
     pieColor,
@@ -205,5 +205,13 @@ export const sellers = (data, color) => ({
 export const factoryDistribution = (data) => ({
     header: ['区域', '企业数量', '总产能(件)', '设备联网数(台)', '就业人数'],
     headerBGC: '#15B1AF',
-    
+    data: data.map(item => {
+        return [
+            item.area,
+            item.companyNum,
+            item.totalCapacity,
+            item.deviceNum,
+            item.employeeNum,
+        ]
+    })
 })

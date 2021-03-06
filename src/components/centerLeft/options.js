@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 20:41:29
+ * @LastEditTime: 2021-03-06 14:18:24
  */
 // import echarts from "echarts";
 import {
@@ -11,28 +11,12 @@ import {
     pieColor2
 } from "@/utils/echartColor";
 // 品牌商类型--饼图
-export const brandType = (data = [{
-        name: "周口",
-        value: 55,
-    },
-    {
-        name: "南阳",
-        value: 120,
-    },
-    {
-        name: "西峡",
-        value: 78,
-    },
-    {
-        name: "驻马店",
-        value: 66,
-    },
-    {
-        name: "新乡",
-        value: 80,
-    },
-]) => ({
-    data: data,
+export const brandType = (data) => ({
+    data: data.map(item => {
+        return {
+            value: item.value
+        }
+    }),
     lineWidth: 50,
     radius: "70%",
     activeRadius: "75%",
@@ -42,9 +26,7 @@ export const brandType = (data = [{
     },
     color: pieColor,
     legend: {
-        type: "plain",
-        show: "true",
-        data: ["西凉", "益州", "兖州", "荆州", "幽州"],
+        show: false,
     },
 })
 // 品牌商规模--柱状图
@@ -79,30 +61,15 @@ export const brandSize = (data = [{
     showValue: true,
 })
 // 地域分布--饼图
-export const geographicalDistribution = (data = [{
-        name: "南阳",
-        value: 167,
-    },
-    {
-        name: "周口",
-        value: 123,
-    },
-    {
-        name: "漯河",
-        value: 98,
-    },
-    {
-        name: "郑州",
-        value: 75,
-    },
-    {
-        name: "西峡",
-        value: 66,
-    },
-]) => ({
+export const geographicalDistribution = (data) => ({
     radius: "70%",
     activeRadius: "80%",
-    data: data,
+    data: data.map(item => {
+        return {
+            value: item.num,
+            name: item.regionName
+        }
+    }),
     color: pieColor2,
 })
 // 款式分类--百分比环图
@@ -152,7 +119,7 @@ export const styleClassification = (data, color, total) => ({
 export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
     xAxis: {
         type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        data: data.map(item => item.name),
         axisLabel: {
             show: true,
             textStyle: {
@@ -176,7 +143,7 @@ export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
     //设置柱的宽度，要是数据太少，柱子太宽不美观~
     barWidth: 30,
     series: [{
-        data: data,
+        data: data.map(item => item.value),
         type: 'bar',
         itemStyle: {
             normal: {
@@ -339,11 +306,9 @@ export const serviceType = (data) => ({
                 color: '#FF7D7F' // 填充的颜色。[ default: "#000" ]
             }
         },
-
         data: [{
-            value: data.map(item => item.percent),
-            name: '预算分配（Allocated Budget）',
-        }, ]
+            value: data.map(item => item.percent)
+        }]
     }]
 })
 // 颜色构成--柱形图

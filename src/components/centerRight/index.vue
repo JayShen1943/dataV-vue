@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 21:29:14
+ * @LastEditTime: 2021-03-06 10:06:14
 -->
 <template>
   <div class="right-data">
@@ -125,7 +125,6 @@ export default {
     async getCenterScreenDataRight() {
       const RES = await findCenterScreenDataRight();
       if (RES && RES.data && RES.data.result) {
-        console.log(RES.data);
         const DATA = RES.data;
         this.fabricSupplierData = DATA.fabricPercentData;
         // this.fabricSupplierDistributedData = DATA.fabricRegionData;

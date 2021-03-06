@@ -3,35 +3,38 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 20:45:13
+ * @LastEditTime: 2021-03-06 14:19:31
 -->
 <template>
   <div class="left-data">
     <div class="left-row1">
       <ShadowBox class="left-row1-box1" title="品牌商类型" line-color="#2DD3B3">
         <div class="left-row1-box1__legend">
-          <div class="left-row1-box1__legend__text">自行车</div>
-          <div class="left-row1-box1__legend__text">自行车</div>
-          <div class="left-row1-box1__legend__text">自行车</div>
+          <div
+            v-for="(item, index) in brandTypeTitle"
+            :key="item + index"
+            class="left-row1-box1__legend__text"
+          >
+            {{ item }}
+          </div>
         </div>
         <dv-active-ring-chart
-          :config="brandType()"
+          :config="brandType(brandTypeData)"
           class="left-row1-box1__chart"
           style="width: 305px; height: 300px"
         />
       </ShadowBox>
       <ShadowBox title="品牌商规模" line-color="#FCCE48">
         <dv-capsule-chart
-          :config="brandSize()"
+          :config="brandSize(brandSizeData)"
           style="
             width: 90%;
-            height: 300px;
+            height: 380px;
             margin-left: 30px;
             margin-top: 80px;
           "
       /></ShadowBox>
       <ShadowBox class="left-row1-box3" title="地域分布" line-color="#3DAAEB ">
-        <!-- <Echart :options="options" style="width: 100%; height: 305px" /> -->
         <div class="left-row1-box3__legend left-row1-box3__legend__right">
           <div
             v-for="(item, index) in areaLeft"
@@ -47,7 +50,7 @@
           </div>
         </div>
         <dv-active-ring-chart
-          :config="geographicalDistribution()"
+          :config="geographicalDistribution(geographicalDistributionData)"
           class="left-row1-box3__chart"
           style="width: 305px; height: 305px"
         />
@@ -128,7 +131,7 @@
       </ShadowBox>
       <ShadowBox title="订单金额" line-color="#FF7D7F ">
         <Echart
-          :options="orderAmount()"
+          :options="orderAmount(orderAmountData)"
           style="width: 90%; height: 380px; margin-left: 50px"
         />
       </ShadowBox>
@@ -223,12 +226,16 @@ export default {
       timer: null, // 定时器
       leftLoading: true,
       brandTypeData: [], // 品牌商类型
+      brandTypeTitle: [],
+      brandSizeData: [], // 品牌商规模
       colorCompositionData: [], // 颜色构成
       styleClassificationData: [], // 款式分类
       styleClassificationTotal: 0, // 款式分类总数
       orderGrowthData: [], // 订单增长情况
       serviceTypeData: [], // 服务类型
       orderProductionTypeData: [], // 订单生产类型
+      orderAmountData: [], // 订单金额
+      geographicalDistributionData: [], // 地域分布
     };
   },
   created() {
@@ -249,8 +256,9 @@ export default {
       const RES = await findCenterScreenDataLeft();
       if (RES && RES.data) {
         const DATA = RES.data;
-        // console.log(RES.data);
-        // this.brandTypeData = RES.data.channeData;
+        console.log(DATA);
+        this.brandTypeData = DATA.channelData;
+        this.brandTypeTitle = DATA.channelData.map((item) => item.name);
         this.colorCompositionData = DATA.colorPercentData;
         this.styleClassificationData = DATA.designClassData;
         DATA.designClassData.forEach((i) => {
@@ -259,6 +267,29 @@ export default {
         this.orderGrowthData = DATA.orderMonthData;
         this.serviceTypeData = DATA.requirementTypeData;
         this.orderProductionTypeData = DATA.ooperationTypeData;
+        this.geographicalDistributionData = DATA.regionData;
+        // 处理品牌商规模数据格式
+        let brandSizeList = [];
+        Object.getOwnPropertyNames(DATA.scaleData).forEach(function (key) {
+          let obj = {
+            value: DATA.scaleData[key],
+            name: key,
+          };
+          brandSizeList.push(obj);
+        });
+        this.brandSizeData = brandSizeList;
+        // 处理订单金额 数据格式
+        let orderAmounList = [];
+        Object.getOwnPropertyNames(DATA.priceRangeData[0]).forEach(function (
+          key
+        ) {
+          let obj = {
+            value: DATA.priceRangeData[0][key],
+            name: key,
+          };
+          orderAmounList.push(obj);
+        });
+        this.orderAmountData = orderAmounList;
       }
     },
   },

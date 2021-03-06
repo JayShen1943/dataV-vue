@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-04 14:13:50
+ * @LastEditTime: 2021-03-06 09:42:22
 -->
 <template>
   <div class="center">
@@ -66,7 +66,6 @@ export default {
     // },
     // async getData() {
     //   const RES = await demo({ id: 1 });
-    //   console.log(RES);
     // },
   },
 };

@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 21:36:49
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 18:14:44
+ * @LastEditTime: 2021-03-06 09:36:35
  */
 import {
     getToken,
@@ -15,6 +15,7 @@ promise.polyfill()
 
 const service = axios.create({
     baseURL: '',
+    // baseURL:process.env.VUE_APP_API,
     timeout: 30000
 })
 

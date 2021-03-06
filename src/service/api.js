@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 21:50:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 18:28:08
+ * @LastEditTime: 2021-03-06 09:36:56
  */
 import request from '@/utils/request'
 // import {
@@ -11,7 +11,7 @@ import request from '@/utils/request'
 // } from '@/utils/token'
 export function demo(params) {
     return request({
-        url: '/api/demo',
+        url: '/proxy/demo',
         method: 'get',
         params
     })
@@ -19,7 +19,7 @@ export function demo(params) {
 // 中间大屏中间数据
 export function findCenterScreenDataMiddle(params) {
     return request({
-        url: '/api/Isonoe/client/synthesis/findCenterScreenDataMiddle',
+        url: '/proxy/Isonoe/client/synthesis/findCenterScreenDataMiddle',
         method: 'post',
         params
     })
@@ -27,7 +27,7 @@ export function findCenterScreenDataMiddle(params) {
 // 中间大屏左边数据
 export function findCenterScreenDataLeft(params) {
     return request({
-        url: '/api/Isonoe/client/synthesis/findCenterScreenDataLeft',
+        url: '/proxy/Isonoe/client/synthesis/findCenterScreenDataLeft',
         method: 'post',
         params
     })
@@ -36,7 +36,7 @@ export function findCenterScreenDataLeft(params) {
 // 中间大屏右边数据
 export function findCenterScreenDataRight(params) {
     return request({
-        url: '/api/Isonoe/client/synthesis/findCenterScreenDataRight',
+        url: '/proxy/Isonoe/client/synthesis/findCenterScreenDataRight',
         method: 'post',
         params
     })
@@ -45,7 +45,7 @@ export function findCenterScreenDataRight(params) {
 // 左边大屏数据
 export function findLeftScreenData(params) {
     return request({
-        url: '/api/Isonoe/client/synthesis/findLeftScreenData',
+        url: '/proxy/Isonoe/client/synthesis/findLeftScreenData',
         method: 'post',
         params
     })
@@ -54,7 +54,7 @@ export function findLeftScreenData(params) {
 // 右边大屏数据
 export function findRightScreenData(params) {
     return request({
-        url: '/api/Isonoe/client/synthesis/findRightScreenData',
+        url: '/proxy/Isonoe/client/synthesis/findRightScreenData',
         method: 'post',
         params
     })

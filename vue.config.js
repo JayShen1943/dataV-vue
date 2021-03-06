@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 23:07:27
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 18:18:27
+ * @LastEditTime: 2021-03-06 09:36:26
  */
 const path = require('path')
 
@@ -14,12 +14,12 @@ module.exports = {
     devServer: {
         port: 8888,
         proxy: {
-            "/api": {
-                target: "http://192.168.20.25:8888",
+            "/proxy": {
+                target: "http://113.31.113.226:9999",
                 changeOrigin: true,
                 "secure": false,
                 pathRewrite: {
-                    "^/api": "", // 重写路径
+                    "^/proxy": "", // 重写路径
                 },
             },
         }
