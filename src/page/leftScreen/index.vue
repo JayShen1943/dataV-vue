@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 11:00:18
+ * @LastEditTime: 2021-03-10 12:42:07
 -->
 <template>
   <div class="left-screen">
@@ -15,7 +15,40 @@
       />
       <div class="title"><VerticalLine />品牌商<VerticalLine /></div>
     </header>
-    <main>
+    <div style="display:flex">
+      <dv-active-ring-chart
+        :config="demoConfig"
+        style="width: 300px; height: 300px"
+      />
+      <dv-active-ring-chart
+        :config="demoConfig"
+        style="width: 300px; height: 300px"
+      />
+      <dv-active-ring-chart
+        :config="demoConfig"
+        style="width: 300px; height: 300px"
+      />
+       <dv-active-ring-chart
+        :config="demoConfig"
+        style="width: 300px; height: 300px"
+      />
+      <dv-active-ring-chart
+        :config="demoConfig"
+        style="width: 300px; height: 300px"
+      />
+      <dv-active-ring-chart
+        :config="demoConfig"
+        style="width: 300px; height: 300px"
+      />
+    </div>
+    <div style="display:flex">
+      <dv-capsule-chart :config="demoConfig" style="width:300px;height:200px" />
+      <dv-capsule-chart :config="demoConfig" style="width:300px;height:200px" />
+      <dv-capsule-chart :config="demoConfig" style="width:300px;height:200px" />
+      <dv-capsule-chart :config="demoConfig" style="width:300px;height:200px" />
+      <dv-capsule-chart :config="demoConfig" style="width:300px;height:200px" />
+    </div>
+    <!-- <main>
       <div class="left-box">
         <ShadowBox
           title="新增品牌商"
@@ -28,10 +61,6 @@
               <div class="num">{{ newbrandTotal }}</div>
               <div class="text">家</div>
             </div>
-            <!-- <dv-capsule-chart
-              :config="newbrand()"
-              style="width: 350px; height: 300px"
-            /> -->
             <Echart
               :options="newbrand(newbrandData)"
               style="width: 350px; height: 300px"
@@ -122,10 +151,6 @@
                 <div class="chart-box-title">
                   <VerticalLine line-color="#2DD3B3" />订单金额构成
                 </div>
-                <!-- <dv-capsule-chart
-                  :config="amountComposition()"
-                  style="width: 100%; height: 460px; margin-top: 40px"
-                /> -->
                 <Echart
                   :options="amountComposition(amountCompositionData)"
                   style="width: 100%; height: 460px; margin-top: 40px"
@@ -144,7 +169,7 @@
           </ShadowBox>
         </div>
       </div>
-    </main>
+    </main> -->
   </div>
 </template>
 
@@ -168,9 +193,9 @@ export default {
       serviceType,
       amountComposition,
       newOrderForm,
-      config: {},
-      config2: {},
-      config3: {},
+      // config: {},
+      // config2: {},
+      // config3: {},
       newbrandData: [], // 新增品牌商
       newbrandTotal: 0, // 新增品牌商数量
       styleClassificationData: [], // 款式分类
@@ -178,6 +203,35 @@ export default {
       newMerchantsData: [], // 新增入驻品牌
       newOrderFormData: [], // 新增订单一览表
       amountCompositionData: [], // 订单金额构成
+      demoConfig: {
+        radius: "40%",
+        activeRadius: "45%",
+        data: [
+          {
+            name: "周口",
+            value: 55,
+          },
+          {
+            name: "南阳",
+            value: 120,
+          },
+          {
+            name: "西峡",
+            value: 78,
+          },
+          {
+            name: "驻马店",
+            value: 66,
+          },
+          {
+            name: "新乡",
+            value: 80,
+          },
+        ],
+        digitalFlopStyle: {
+          fontSize: 20,
+        },
+      },
     };
   },
   created() {
@@ -266,12 +320,13 @@ export default {
       width: 100%;
     }
     .title {
-      font-size: 90px;
+      // font-size: 90px;
+      font-size: 26px;
       color: #ffffff;
       font-weight: 600;
       position: absolute;
       text-align: center;
-      top: 13px;
+      top: 10px;
       right: 44.5%;
     }
     .time {

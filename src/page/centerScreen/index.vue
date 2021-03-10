@@ -3,23 +3,31 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 09:42:22
+ * @LastEditTime: 2021-03-10 10:19:32
 -->
 <template>
-  <div class="center">
-    <header>
-      <img src="@/assets/image/banner/header2x.png" alt="" class="header-img" />
-      <div class="title"><VerticalLine />得体智能供应链服务平台<VerticalLine /></div>
-      <div class="time">
-        <!-- {{ time.dateYear }} {{ time.dateWeek }} {{ time.dateDay }} -->
-      </div>
-    </header>
-    <main>
-      <CenterLeft />
-      <Banner />
+  <dv-full-screen-container class="bg">
+    <div class="center">
+      <header>
+        <img
+          src="@/assets/image/banner/header2x.png"
+          alt=""
+          class="header-img"
+        />
+        <div class="title">
+          <VerticalLine />得体智能供应链服务平台<VerticalLine />
+        </div>
+        <div class="time">
+          <!-- {{ time.dateYear }} {{ time.dateWeek }} {{ time.dateDay }} -->
+        </div>
+      </header>
+      <main>
+        <CenterLeft />
+        <Banner />
       <CenterRight />
-    </main>
-  </div>
+      </main>
+    </div>
+  </dv-full-screen-container>
 </template>
 
 <script>
@@ -72,6 +80,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.bg{
+  background: linear-gradient(
+270deg
+, #07122b, #192643 47%, #0e1a34);
+}
 .center {
   header {
     position: relative;
@@ -79,15 +92,16 @@ export default {
       width: 100%;
     }
     .title {
-      // font-size: 0.3rem /* 24/80 */;
-      font-size: 90px;
+      font-size: 0.3rem /* 24/80 */;
       color: #ffffff;
       font-weight: 600;
       text-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+      font-size: 0.3rem;
       position: absolute;
-      text-align: center;
-      top: 13px;
-      right: 43.5%;
+      // top: -0.125rem /* 10/80 */;
+      top: 0.1rem;
+      left: 50%;
+      transform: translate(-50%);
     }
     .time {
       position: absolute;
@@ -98,7 +112,6 @@ export default {
     }
   }
   main {
-    padding: 0 50px;
     display: flex;
   }
 }

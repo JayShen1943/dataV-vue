@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 14:19:31
+ * @LastEditTime: 2021-03-10 10:05:58
 -->
 <template>
   <div class="left-data">
@@ -302,7 +302,6 @@ export default {
   .left-row1 {
     display: flex;
     .left-row1-box1 {
-      display: flex;
       position: relative;
       &__chart {
         position: absolute;

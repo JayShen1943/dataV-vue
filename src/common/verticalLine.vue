@@ -3,12 +3,12 @@
  * @Author: JayShen
  * @Date: 2021-03-01 11:36:38
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 09:52:46
+ * @LastEditTime: 2021-03-10 10:11:38
 -->
 <template>
   <div
     class="vertical-line"
-    :style="`background:${lineColor};width:${lineWidth}px; height:${lineHeight}px;margin:${lineMargin}`"
+    :style="`background:${lineColor};width:${lineWidth}rem; height:${lineHeight}rem;`"
   ></div>
 </template>
 
@@ -22,15 +22,11 @@ export default {
     },
     lineWidth: {
       type: Number,
-      default: 5,
+      default: 0.0125,
     },
     lineHeight: {
       type: Number,
-      default: 43,
-    },
-    lineMargin: {
-      type: String,
-      default: "0px 20px 0px 20px",
+      default: 0.1375,
     },
   },
 };
@@ -39,6 +35,7 @@ export default {
 <style lang="less" scoped>
 .vertical-line {
   display: inline-block;
+  margin:0rem .0625rem 0px .0625rem 
   // vertical-align: middle;
 }
 </style>

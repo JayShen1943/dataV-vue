@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 10:06:14
+ * @LastEditTime: 2021-03-10 10:30:57
 -->
 <template>
   <div class="right-data">
@@ -62,27 +62,28 @@
         </div>
       </ShadowBox>
       <ShadowBox title="设计师满意度排名" line-color="#67A6E0">
-        <dv-scroll-board
+        <!-- <dv-scroll-board
           :config="designerRank2(designerRankDATA)"
           style="width: 650px; height: 370px; margin-left: 50px"
-      /></ShadowBox>
+      /> -->
+      </ShadowBox>
     </div>
     <div class="right-row3">
       <div class="right-row3-box3">
         <h3 class="right-row3-box3__title">
           <VerticalLine line-color="#2DD3B3" />各区域工厂产能分布
         </h3>
-        <dv-scroll-board
+        <!-- <dv-scroll-board
           :config="factoryDistribution(factoryDistributionData)"
           style="width: 90%; height: 370px; margin-left: 80px"
-        />
+        /> -->
       </div>
-      <ShadowBox title="工厂接单排名" line-color="#E7A976">
+      <!-- <ShadowBox title="工厂接单排名" line-color="#E7A976">
         <dv-scroll-board
           :config="factoryRank(factoryRankData)"
           style="width: 650px; height: 370px; margin-left: 50px"
         />
-      </ShadowBox>
+      </ShadowBox> -->
     </div>
   </div>
 </template>
@@ -162,21 +163,20 @@ export default {
     display: flex;
     margin-top: 20px;
     .right-row3-box3 {
-      width: 1532px;
-      height: 610px;
+      width: 5.125rem /* 410/80 */;
+      height: 2.075rem /* 166/80 */;
       background: rgba(25, 38, 67, 0.8);
       border: 0.025rem solid #1572be;
       box-shadow: 0px 0px 0.25rem 0px #005fac inset;
       margin-right: 20px;
       &__title {
-        font-size: 46px;
+        font-size: 0.15rem /* 12/80 */;
         font-weight: 400;
         background: linear-gradient(0deg, #8fcdff 3%, #ecf6ff 98%);
         text-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
         -webkit-background-clip: text;
         color: transparent;
         text-align: left;
-        margin-left: 50px;
       }
     }
   }

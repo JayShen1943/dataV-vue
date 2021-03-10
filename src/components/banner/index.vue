@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 20:54:27
+ * @LastEditTime: 2021-03-10 10:28:06
 -->
 <template>
   <div class="banner">
@@ -114,13 +114,13 @@ export default {
 .banner {
   position: relative;
   .banner {
-    width: 2430px;
+    width: 8.125rem /* 650/80 */;
   }
   .banner-kid-box {
     display: flex;
     justify-content: space-between;
     .banner-kid {
-      width: 797px;
+      width: 2.6625rem /* 213/80 */;
       &__margin {
         margin: 0 10px;
       }
@@ -129,20 +129,20 @@ export default {
 
   .top-nformation {
     position: absolute;
-    top: 50px;
-    left: 50px;
+    top: 0.1625rem;
+    left: 0.1625rem;
     opacity: 0.9;
     background: #172441;
     display: flex;
     &__item {
       position: relative;
-      width: 776px;
-      height: 252px;
+      width: 2.6rem /* 208/80 */;
+      height: 0.8375rem;
       text-align: center;
       &__title {
-        margin: 40px 0 30px;
+        margin: 0.1375rem 0 0.1625rem;
         background: linear-gradient(0deg, #8fcdff 3%, #ecf6ff 98%);
-        font-size: 46px;
+        font-size: 0.15rem;
         -webkit-background-clip: text;
         font-weight: 400;
         color: #ffffff;
@@ -151,7 +151,7 @@ export default {
       &__value {
         margin: 0;
         opacity: 1;
-        font-size: 70px;
+        font-size: 0.25rem;
         font-family: PingFangSC, PingFangSC-Semibold;
         font-weight: 600;
         color: #fcce48;
@@ -160,11 +160,11 @@ export default {
     }
     &__item::after {
       position: absolute;
-      top: 40px;
+      top: 0.1375rem;
       display: block;
       content: "";
-      width: 1px;
-      height: 172px;
+      width: 0.0125rem;
+      height: 0.575rem;
       opacity: 0.7;
       background: #3daaeb;
     }
@@ -178,31 +178,32 @@ export default {
   }
   .bottom-nformation {
     position: absolute;
-    bottom: 465px;
-    left: -5px;
+    top: 4.025rem /* 322/80 */;
+    left: -0.025rem /* 5/80 */;
     opacity: 0.9;
     background: #172441;
     display: flex;
     &__item {
-      width: 348px;
-      height: 208px;
+      width: 1.1625rem;
+      height: 0.7rem;
       text-align: center;
       &__title {
         margin: 20px 0 20px;
+        margin: 0.05rem 0 0.05rem;
         opacity: 1;
         color: #3daaeb;
-        font-size: 40px;
+        font-size: 0.175rem;
         font-weight: 400;
         text-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
       }
       &__value {
         margin: 0;
         color: #2dd3b3;
-        font-size: 68px;
+        font-size: 0.225rem /* 18/80 */;
         font-weight: 600;
         text-shadow: 0px 8px 0px 0px rgba(0, 0, 0, 0.5);
         &__text {
-          font-size: 32px;
+          font-size: 0.15rem;
           font-weight: 400;
           color: #3daaeb;
         }
@@ -210,11 +211,11 @@ export default {
     }
     &__item::after {
       position: absolute;
-      top: 40px;
+      top: 0.125rem /* 10/80 */;
       display: block;
       content: "";
-      width: 1px;
-      height: 130px;
+      width: 0.0125rem;
+      height: 0.4375rem;
       opacity: 0.7;
       background: #3daaeb;
     }
