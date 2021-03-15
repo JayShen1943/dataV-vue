@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 21:50:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 21:14:58
+ * @LastEditTime: 2021-03-16 00:12:36
  */
 import request from '@/utils/request'
 // import {
@@ -12,7 +12,7 @@ import request from '@/utils/request'
 // 中间大屏中间数据
 export function findCenterScreenDataMiddle(params) {
     return request({
-        url: '/proxy/Isonoe/client/synthesis/findCenterScreenDataMiddle',
+        url: '/act/Isonoe/client/synthesis/findCenterScreenDataMiddle',
         method: 'post',
         params
     })
@@ -20,7 +20,7 @@ export function findCenterScreenDataMiddle(params) {
 // 中间大屏左边数据
 export function findCenterScreenDataLeft(params) {
     return request({
-        url: '/proxy/Isonoe/client/synthesis/findCenterScreenDataLeft',
+        url: 'act/Isonoe/client/synthesis/findCenterScreenDataLeft',
         method: 'post',
         params
     })
@@ -29,7 +29,7 @@ export function findCenterScreenDataLeft(params) {
 // 中间大屏右边数据
 export function findCenterScreenDataRight(params) {
     return request({
-        url: '/proxy/Isonoe/client/synthesis/findCenterScreenDataRight',
+        url: '/act/Isonoe/client/synthesis/findCenterScreenDataRight',
         method: 'post',
         params
     })
@@ -38,7 +38,7 @@ export function findCenterScreenDataRight(params) {
 // 左边大屏数据
 export function findLeftScreenData(params) {
     return request({
-        url: '/proxy/Isonoe/client/synthesis/findLeftScreenData',
+        url: '/act/Isonoe/client/synthesis/findLeftScreenData',
         method: 'post',
         params
     })
@@ -47,7 +47,7 @@ export function findLeftScreenData(params) {
 // 右边大屏数据
 export function findRightScreenData(params) {
     return request({
-        url: '/proxy/Isonoe/client/synthesis/findRightScreenData',
+        url: '/act/Isonoe/client/synthesis/findRightScreenData',
         method: 'post',
         params
     })
