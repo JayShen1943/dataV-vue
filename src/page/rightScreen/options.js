@@ -3,13 +3,13 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:17:50
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 20:57:16
+ * @LastEditTime: 2021-03-16 00:43:30
  */
 // 设计打版进度一览表
 export const designTable = (data) => ({
     header: ['款号', '分类', '季节', '日期', '打版状态', '工艺状态', '核价状态'],
     headerBGC: '#15B1AF',
-    columnWidth: [150, 150, 50, 100],
+    columnWidth: [100, 150, 50, 100],
     data: data.map(item => {
         return [
             item.designCode,
@@ -27,7 +27,7 @@ export const designTable = (data) => ({
 export const purchaseTable = (data) => ({
     header: ['订单编号', '供应商', '面辅料', '数量', '下单时间', '订单状态', ],
     headerBGC: '#15B1AF',
-    columnWidth: [250],
+    columnWidth: [220,200,80,60,100],
     data: data.map(item => {
         return [
             item.serialNumber,
