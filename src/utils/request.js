@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 21:36:49
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 09:36:35
+ * @LastEditTime: 2021-03-15 21:45:37
  */
 import {
     getToken,
@@ -14,8 +14,8 @@ import promise from 'es6-promise'
 promise.polyfill()
 
 const service = axios.create({
-    baseURL: '',
-    // baseURL:process.env.VUE_APP_API,
+    // baseURL: '',
+    baseURL:process.env.VUE_APP_API,
     timeout: 30000
 })
 
