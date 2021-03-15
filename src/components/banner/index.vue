@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 20:54:27
+ * @LastEditTime: 2021-03-15 18:26:17
 -->
 <template>
   <div class="banner">
@@ -84,10 +84,21 @@ export default {
         { value: "234", title: "生产商" },
       ],
       formatter,
+      bnnerTimerNum: null,
     };
   },
   created() {
     this.getCenterScreenDataMiddle();
+  },
+  mounted() {
+    const bnnerTimerNum = 1000 * 60 * 60;
+    this.bnnerTimer = setInterval(() => {
+      this.getCenterScreenDataLeft();
+    }, bnnerTimerNum);
+  },
+  beforeDestroy() {
+    clearInterval(this.bnnerTimer); // 清除定时器
+    this.bnnerTimer = null;
   },
   methods: {
     async getCenterScreenDataMiddle() {
@@ -114,13 +125,16 @@ export default {
 .banner {
   position: relative;
   .banner {
-    width: 2430px;
+    width: 1458px;
+    height: 820px;
   }
   .banner-kid-box {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
     .banner-kid {
-      width: 797px;
+      width: 480px;
+      height: 270px;
       &__margin {
         margin: 0 10px;
       }
@@ -129,20 +143,20 @@ export default {
 
   .top-nformation {
     position: absolute;
-    top: 50px;
-    left: 50px;
+    top: 30px;
+    left: 26px;
     opacity: 0.9;
     background: #172441;
     display: flex;
     &__item {
       position: relative;
-      width: 776px;
-      height: 252px;
+      width: 467px;
+      height: 150px;
       text-align: center;
       &__title {
-        margin: 40px 0 30px;
+        margin: 25px 0 10px;
         background: linear-gradient(0deg, #8fcdff 3%, #ecf6ff 98%);
-        font-size: 46px;
+        font-size: 26px;
         -webkit-background-clip: text;
         font-weight: 400;
         color: #ffffff;
@@ -151,7 +165,7 @@ export default {
       &__value {
         margin: 0;
         opacity: 1;
-        font-size: 70px;
+        font-size: 50px;
         font-family: PingFangSC, PingFangSC-Semibold;
         font-weight: 600;
         color: #fcce48;
@@ -160,11 +174,11 @@ export default {
     }
     &__item::after {
       position: absolute;
-      top: 40px;
+      top: 15%;
       display: block;
       content: "";
       width: 1px;
-      height: 172px;
+      height: 75%;
       opacity: 0.7;
       background: #3daaeb;
     }
@@ -178,31 +192,31 @@ export default {
   }
   .bottom-nformation {
     position: absolute;
-    bottom: 465px;
-    left: -5px;
+    bottom: 25.5%;
+    left: 1px;
     opacity: 0.9;
     background: #172441;
     display: flex;
     &__item {
-      width: 348px;
-      height: 208px;
+      width: 208px;
+      height: 123px;
       text-align: center;
       &__title {
-        margin: 20px 0 20px;
+        margin: 20px 0 10px;
         opacity: 1;
         color: #3daaeb;
-        font-size: 40px;
+        font-size: 26px;
         font-weight: 400;
         text-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
       }
       &__value {
         margin: 0;
         color: #2dd3b3;
-        font-size: 68px;
+        font-size: 40px;
         font-weight: 600;
-        text-shadow: 0px 8px 0px 0px rgba(0, 0, 0, 0.5);
+        text-shadow: 0px 4px 0px 0px rgba(0, 0, 0, 0.5);
         &__text {
-          font-size: 32px;
+          font-size: 20px;
           font-weight: 400;
           color: #3daaeb;
         }
@@ -210,11 +224,11 @@ export default {
     }
     &__item::after {
       position: absolute;
-      top: 40px;
+      top: 15%;
       display: block;
       content: "";
       width: 1px;
-      height: 130px;
+      height: 75%;
       opacity: 0.7;
       background: #3daaeb;
     }

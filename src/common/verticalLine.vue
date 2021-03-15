@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 11:36:38
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-05 09:52:46
+ * @LastEditTime: 2021-03-15 11:36:23
 -->
 <template>
   <div
@@ -22,15 +22,15 @@ export default {
     },
     lineWidth: {
       type: Number,
-      default: 5,
+      default: 4,
     },
     lineHeight: {
       type: Number,
-      default: 43,
+      default: 26,
     },
     lineMargin: {
       type: String,
-      default: "0px 20px 0px 20px",
+      default: "0px 10px 0px 10px",
     },
   },
 };

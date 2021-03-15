@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 15:50:07
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-01 20:01:28
+ * @LastEditTime: 2021-03-15 20:24:17
 -->
 <template>
   <div
@@ -33,7 +33,7 @@ export default {
     },
     height: {
       type: String,
-      default: "2.5rem",
+      default: "80%",
     },
     options: {
       type: Object,

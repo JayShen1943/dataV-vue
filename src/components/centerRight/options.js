@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 11:11:21
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 10:08:33
+ * @LastEditTime: 2021-03-15 20:06:45
  */
 import {
     pieColor,
@@ -13,75 +13,55 @@ import {
 export const fabricSupplier = (data) => ({
     tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)'
     },
     legend: {
-        show: false
+        orient: 'vertical',
+        right: 10,
+        bottom: 0,
+        itemWidth: 4,
+        itemHeight: 16,
+        textStyle: {
+            color: '#C5E4FF',
+            fontSize: 16
+        }
+
     },
     series: [{
-            type: 'pie',
-            selectedMode: 'single',
-            color: ["#FF7D7F", "#E96074", "#E7A976", "#FCCE48"],
-            radius: [0, '50%'],
-            label: {
-                position: 'inner',
-                fontSize: 19,
-                show: false
+        // name: "访问来源",
+        type: "pie",
+        radius: "80%",
+        color: ['#FF7D7F', '#FCCE48', '#664CC7'],
+        data: data.map(item => {
+            return {
+                value: item.percent,
+                name: item.sampleTypeName
+            }
+        }),
+        emphasis: {
+            itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
             },
-            labelLine: {
-                show: false
-            },
-            data: data.map(item => {
-                return {
-                    value: item.num,
-                    name: item.sampleTypeName
-                }
-            })
         },
-        {
-            name: '访问来源',
-            type: 'pie',
-            radius: ['65%', '90%'],
-            color: pieColor,
-            labelLine: {
-                length: 30,
-            },
-            label: {
-                show: false,
-                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
-            },
-            data: data.map(item => {
-                return {
-                    value: item.num,
-                    name: item.sampleTypeName
-                }
-            })
+        // 指示线文字
+        label: {
+            normal: {
+                formatter: "{d}%", //数值和百分比
+                fontSize: 16,
+            }
+
         }
-    ]
+    }, ],
 })
 // 面辅料供应地域分布--柱形图
-export const fabricSupplierDistributed = () => ({
-    data: [{
-            name: '南阳',
-            value: 167
-        },
-        {
-            name: '周口',
-            value: 123
-        },
-        {
-            name: '漯河',
-            value: 98
-        },
-        {
-            name: '郑州',
-            value: 75
-        },
-        {
-            name: '西峡',
-            value: 66
-        },
-    ],
+export const fabricSupplierDistributed = (data) => ({
+    data: data.map(item => {
+        return {
+            name: item.code,
+            value: Number(item.value)
+        }
+    }),
     colors: ['#FCCE48', '#FCCE48', '#FCCE48', '#FCCE48', '#FCCE48'],
     // unit: '单位',
     showValue: true
@@ -100,13 +80,34 @@ export const designerRank = (data) => ({
     })
 })
 // 设计师满意度排名2
-export const designerRank2 = (data) => ({
-    header: ['名称', '满意度'],
+export const designerRank2 = (data = [{
+        name: '智通生产基地',
+        area: '广州',
+        html: '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+    }, {
+        name: '三鑫生产基地',
+        area: '杭州',
+        html: '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+    },
+    {
+        name: '于都生产基地',
+        area: '赣州',
+        html: '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+    },
+    {
+        name: '千百万生产基地',
+        area: '杭州',
+        html: '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+    },
+]) => ({
+    header: ['名称', '区域', '满意度'],
     headerBGC: '#67A6E0',
+    rowNum: 4,
     data: data.map(item => {
         return [
-            item.designer,
-            '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+            item.name,
+            item.area,
+            item.html
         ]
     })
 })
@@ -114,50 +115,31 @@ export const designerRank2 = (data) => ({
 export const factoryRank = (data) => ({
     header: ['名称', '数量', '排名'],
     headerBGC: '#E7A976',
-    data: data.map(item => {
+    data: data.map((item, index) => {
         return [
             item.productionSupplierName,
             item.orderDetailNum,
-            item.num,
+            index + 1,
         ]
-    })
+    }),
+    columnWidth: [250]
 })
 // 工艺商--饼图
-export const craftsman = () => ({
-    data: [{
-            name: "周口",
-            value: 55,
-        },
-        {
-            name: "南阳",
-            value: 120,
-        },
-        {
-            name: "西峡",
-            value: 78,
-        },
-        {
-            name: "驻马店",
-            value: 66,
-        },
-        {
-            name: "新乡",
-            value: 80,
-        },
-    ],
-    lineWidth: 65,
+export const craftsman = (data) => ({
+    data: data.map(item => {
+        return {
+            name: item.codeName,
+            value: Number(item.value)
+        }
+    }),
+    lineWidth: 20,
     radius: "70%",
     activeRadius: "80%",
     digitalFlopStyle: {
-        fontSize: 0,
+        fontSize: 20,
         fill: "#fff",
     },
     color: pieColor,
-    legend: {
-        type: "plain",
-        show: "true",
-        data: ["西凉", "益州", "兖州", "荆州", "幽州"],
-    },
 })
 // 分销商
 export const sellers = (data, color) => ({
@@ -169,7 +151,7 @@ export const sellers = (data, color) => ({
     series: [{
         name: '访问来源',
         type: 'pie',
-        radius: ['50%', '70%'],
+        radius: ['60%', '80%'],
         avoidLabelOverlap: false,
         label: {
             normal: {
@@ -187,7 +169,7 @@ export const sellers = (data, color) => ({
                         show: true,
                         formatter: '{d}%',
                         textStyle: {
-                            fontSize: 22,
+                            fontSize: 18,
                             fontWeight: 'bolder',
                         },
                     }

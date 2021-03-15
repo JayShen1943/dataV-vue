@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 23:07:27
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 09:36:26
+ * @LastEditTime: 2021-03-15 21:00:58
  */
 const path = require('path')
 
@@ -12,15 +12,16 @@ function resolve(dir) {
 }
 module.exports = {
     devServer: {
-        port: 8888,
+        port: 1943,
         proxy: {
             "/proxy": {
-                target: "http://113.31.113.226:9999",
+                target: process.env.VUE_APP_API,
                 changeOrigin: true,
                 "secure": false,
                 pathRewrite: {
                     "^/proxy": "", // 重写路径
                 },
+
             },
         }
     },
@@ -30,4 +31,5 @@ module.exports = {
             .set('@', resolve('./src'))
 
     },
+
 }

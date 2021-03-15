@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:17:50
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 10:56:26
+ * @LastEditTime: 2021-03-15 19:52:55
  */
 import {
     // pieColor,
@@ -36,7 +36,7 @@ export const newbrand = (data) => ({
         axisLabel: {
             textStyle: {
                 color: "#C5E4FF",
-                fontSize: 32,
+                fontSize: 20,
             },
         },
     },
@@ -83,11 +83,11 @@ export const styleClassification = (data) => ({
             name: item.gender
         }
     }),
-    lineWidth: 70,
-    radius: "60%",
-    activeRadius: "70%",
+    lineWidth: 25,
+    radius: "50%",
+    activeRadius: "60%",
     digitalFlopStyle: {
-        fontSize: 0,
+        fontSize: 20,
         fill: "#fff",
     },
     color: pieColor2,
@@ -96,51 +96,54 @@ export const styleClassification = (data) => ({
     },
 
 })
-// 服务类型--柱状图
+// 服务类型--饼图
 export const serviceType = (data) => ({
-    xAxis: {
-        type: 'category',
-        data: data.map(item => item.serviceTypeName),
-        axisLabel: {
-            show: true,
-            textStyle: {
-                color: "#C5E4FF",
-                fontSize: 32,
+    legend: {
+        show: true,
+        align: 'auto',
+        bottom: 0,
+        itemWidth: 14,
+        itemHeight: 14,
+        textStyle: {
+            color: '#C5E4FF',
+            fontSize: 16
+        }
+    },
+    series: [{
+        // name: "访问来源",
+        type: "pie",
+        radius: "50%",
+        color: ['#6BB5FE', '#FCCE48'],
+        data: data.map(item => {
+            return {
+                value: item.num,
+                name: item.serviceTypeName
+            }
+        }),
+        emphasis: {
+            itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
             },
         },
-    },
-    yAxis: {
-        show: false,
-    },
-    barWidth: 30,
-    series: [{
-        data: data.map(item => item.num),
-        type: 'bar',
-        showBackground: true,
-        itemStyle: {
+        // 指示线文字
+        label: {
             normal: {
-                color: function (params) {
-                    return pieColor2[params.dataIndex]
-                },
-                // label: {
-                //     show: true,
-                //     position: 'top',
-                //     formatter: '{b}\n{c}'
-                // }
+                formatter: "{d}%", //数值和百分比
+                fontSize: 16,
             }
-        },
-        backgroundStyle: {
-            color: 'rgba(180, 180, 180, 0.2)'
+
         }
-    }]
+    }, ],
 })
 // 订单金额构成
 export const amountComposition = (data) => ({
     grid: {
         left: "6%",
-        right: "10%",
+        right: "20%",
         bottom: "5%",
-        top: 0,
+        top: '5%',
         containLabel: true,
     },
     xAxis: {
@@ -161,13 +164,13 @@ export const amountComposition = (data) => ({
             show: true,
             textStyle: {
                 color: "#C5E4FF",
-                fontSize: 32,
+                fontSize: 16,
             },
         },
-        data: data.map(item => item.name),
+        data: data.map(item => item.code),
         // show: false,
     },
-    barWidth: 30,
+    barWidth: 20,
     series: [{
         data: data.map(item => item.value),
         type: 'bar',
@@ -177,7 +180,7 @@ export const amountComposition = (data) => ({
             position: 'right',
             valueAnimation: true,
             color: '#C5E4FF',
-            fontSize: 28
+            fontSize: 16
         },
         itemStyle: {
             normal: {
@@ -196,6 +199,7 @@ export const amountComposition = (data) => ({
 export const newOrderForm = (data) => ({
     header: ['订单编号', '品牌商', '款式', '数量', '下单时间'],
     headerBGC: '#15B1AF',
+    columnWidth:[300],
     data: data.map(item => {
         return [
             item.serialNumber,

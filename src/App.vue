@@ -3,11 +3,11 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-03 10:53:23
+ * @LastEditTime: 2021-03-15 19:34:49
 -->
 <template>
   <div id="app">
-    <!-- <dv-full-screen-container> -->
+    <!-- <dv-full-screen-container class="all-bg"> -->
       <router-view> </router-view>
     <!-- </dv-full-screen-container> -->
   </div>
@@ -28,6 +28,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  .all-bg {
+    background: linear-gradient(270deg, #07122b, #192643 47%, #0e1a34);
+  }
 }
 body,
 html {

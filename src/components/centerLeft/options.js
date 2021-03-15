@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 14:18:24
+ * @LastEditTime: 2021-03-15 20:00:52
  */
 // import echarts from "echarts";
 import {
@@ -17,7 +17,7 @@ export const brandType = (data) => ({
             value: item.value
         }
     }),
-    lineWidth: 50,
+    lineWidth: 35,
     radius: "70%",
     activeRadius: "75%",
     digitalFlopStyle: {
@@ -71,6 +71,9 @@ export const geographicalDistribution = (data) => ({
         }
     }),
     color: pieColor2,
+    digitalFlopStyle: {
+        fontSize: 20
+    },
 })
 // 款式分类--百分比环图
 export const styleClassification = (data, color, total) => ({
@@ -82,7 +85,7 @@ export const styleClassification = (data, color, total) => ({
     series: [{
         name: '访问来源',
         type: 'pie',
-        radius: ['50%', '70%'],
+        radius: ['60%', '80%'],
         avoidLabelOverlap: false,
         label: {
             normal: {
@@ -101,7 +104,7 @@ export const styleClassification = (data, color, total) => ({
                         show: true,
                         formatter: '{d}%',
                         textStyle: {
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: 'bolder',
                         },
                     }
@@ -119,12 +122,12 @@ export const styleClassification = (data, color, total) => ({
 export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
     xAxis: {
         type: "category",
-        data: data.map(item => item.name),
+        data: data.map(item => item.code),
         axisLabel: {
             show: true,
             textStyle: {
                 color: "#fff",
-                fontSize: 32,
+                fontSize: 14,
             },
         },
     },
@@ -141,9 +144,9 @@ export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
         },
     },
     //设置柱的宽度，要是数据太少，柱子太宽不美观~
-    barWidth: 30,
+    barWidth: 20,
     series: [{
-        data: data.map(item => item.value),
+        data: data.map(item => item.value * 100),
         type: 'bar',
         itemStyle: {
             normal: {
@@ -154,7 +157,7 @@ export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
                 label: {
                     show: true,
                     position: 'top',
-                    formatter: '{b}\n{c}'
+                    formatter: '{c}%'
                 }
             }
         },
@@ -165,6 +168,13 @@ export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
 })
 // 订单增长情况
 export const orderGrowth = (data) => ({
+    grid: {
+        left: "5%",
+        right: "5%",
+        bottom: "5%",
+        top: "5%",
+        containLabel: true,
+    },
     xAxis: {
         type: "category",
         data: data.map(item => item.orderMonth),
@@ -172,7 +182,7 @@ export const orderGrowth = (data) => ({
             show: true,
             textStyle: {
                 color: "#fff",
-                fontSize: 32,
+                fontSize: 14,
             },
         },
         // 坐标轴设置
@@ -196,7 +206,7 @@ export const orderGrowth = (data) => ({
         axisLabel: {
             textStyle: {
                 color: "#fff",
-                fontSize: 32,
+                fontSize: 12,
             },
         },
         // 背景分割线
@@ -238,13 +248,21 @@ export const orderProductionType = (data = [{
         trigger: "item",
     },
     legend: {
-        show: false,
+        show: true,
+        left: 20,
+        bottom: 0,
+        itemWidth: 14,
+        itemHeight: 14,
+        textStyle: {
+            color: '#C5E4FF',
+            fontSize: 16
+        }
     },
     series: [{
         // name: "访问来源",
         type: "pie",
         radius: "80%",
-        color: pieColor,
+        color: ['#664CC7', '#3DAAEB'],
         data: data.map(item => {
             return {
                 value: item.num,
@@ -269,11 +287,12 @@ export const serviceType = (data) => ({
         },
     },
     radar: {
+        center: ['50%', '55%'],
         // shape: 'circle',
         name: {
             textStyle: {
                 color: '#C5E4FF',
-                fontSize: 32
+                fontSize: 20
             }
         },
         //雷达图背景的颜色，在这儿随便设置了一个颜色，完全不透明度为0，就实现了透明背景
@@ -308,7 +327,7 @@ export const serviceType = (data) => ({
         },
         data: [{
             value: data.map(item => item.percent)
-        }]
+        }],
     }]
 })
 // 颜色构成--柱形图
@@ -332,7 +351,7 @@ export const colorComposition = (colorCompositionData) => ({
     yAxis: {
         type: "category",
         data: colorCompositionData.map((item) => {
-            return item.cooperationType
+            return item.colorName
         }),
         splitLine: {
             show: false,
@@ -340,7 +359,7 @@ export const colorComposition = (colorCompositionData) => ({
         axisLabel: {
             textStyle: {
                 color: "#C5E4FF",
-                fontSize: 32,
+                fontSize: 20,
             },
         },
     },
@@ -365,5 +384,5 @@ export const colorComposition = (colorCompositionData) => ({
         }
     }, ],
     color: "#3DAAEB",
-    barWidth: 19,
+    barWidth: 10,
 })

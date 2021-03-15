@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 14:19:31
+ * @LastEditTime: 2021-03-15 20:36:05
 -->
 <template>
   <div class="left-data">
@@ -21,18 +21,14 @@
         <dv-active-ring-chart
           :config="brandType(brandTypeData)"
           class="left-row1-box1__chart"
-          style="width: 305px; height: 300px"
+          style="width: 60%; height: 60%"
         />
       </ShadowBox>
-      <ShadowBox title="品牌商规模" line-color="#FCCE48">
+      <ShadowBox title="品牌商规模" line-color="#FCCE48" class="left-row1-box2">
         <dv-capsule-chart
           :config="brandSize(brandSizeData)"
-          style="
-            width: 90%;
-            height: 380px;
-            margin-left: 30px;
-            margin-top: 80px;
-          "
+          style="width: 90%; height: 70%; margin-left: 30px; margin-top: 30px"
+          class=""
       /></ShadowBox>
       <ShadowBox class="left-row1-box3" title="地域分布" line-color="#3DAAEB ">
         <div class="left-row1-box3__legend left-row1-box3__legend__right">
@@ -43,8 +39,8 @@
           >
             {{ item.val
             }}<VerticalLine
-              :line-width="8"
-              :line-height="27"
+              :line-width="5"
+              :line-height="16"
               :line-color="item.color"
             />
           </div>
@@ -52,7 +48,7 @@
         <dv-active-ring-chart
           :config="geographicalDistribution(geographicalDistributionData)"
           class="left-row1-box3__chart"
-          style="width: 305px; height: 305px"
+          style="width: 60%; height: 60%"
         />
         <div class="left-row1-box3__legend left-row1-box3__legend__left">
           <div
@@ -62,8 +58,8 @@
           >
             {{ item.val
             }}<VerticalLine
-              :line-width="8"
-              :line-height="27"
+              :line-width="5"
+              :line-height="16"
               :line-color="item.color"
             />
           </div>
@@ -84,7 +80,7 @@
                 styleClassificationTotal
               )
             "
-            style="width: 180px; height: 180px"
+            style="width: 130px; height: 130px"
           />
           <div class="left-row2-box1__flex__title">
             {{ styleClassificationData[1].gender }}
@@ -97,7 +93,7 @@
                 styleClassificationTotal
               )
             "
-            style="width: 180px; height: 180px"
+            style="width: 130px; height: 130px"
           />
         </div>
         <div class="left-row2-box1__flex">
@@ -112,7 +108,7 @@
                 styleClassificationTotal
               )
             "
-            style="width: 180px; height: 180px"
+            style="width: 130px; height: 130px"
           />
           <div class="left-row2-box1__flex__title">
             {{ styleClassificationData[3].gender }}
@@ -125,20 +121,20 @@
                 styleClassificationTotal
               )
             "
-            style="width: 180px; height: 180px"
+            style="width: 130px; height: 130px"
           />
         </div>
       </ShadowBox>
       <ShadowBox title="订单金额" line-color="#FF7D7F ">
         <Echart
           :options="orderAmount(orderAmountData)"
-          style="width: 90%; height: 380px; margin-left: 50px"
+          style="width: 90%; height: 70%; margin-left: 20px"
         />
       </ShadowBox>
       <ShadowBox title="订单增长情况" line-color="#2DD3B3">
         <Echart
           :options="orderGrowth(orderGrowthData)"
-          style="width: 90%; height: 380px; margin-left: 50px"
+          style="width: 90%; height: 70%; margin-left: 20px"
         />
       </ShadowBox>
     </div>
@@ -146,19 +142,19 @@
       <ShadowBox title="服务类型" line-color="#2DD3B3">
         <Echart
           :options="serviceType(serviceTypeData)"
-          style="width: 90%; height: 380px"
+          style="width: 90%; height: 70%; margin-left: 20px"
         />
       </ShadowBox>
       <ShadowBox title="订单生产类型" line-color="#664CC7">
         <Echart
           :options="orderProductionType(orderProductionTypeData)"
-          style="width: 100%; height: 450px"
+          style="width: 100%; height: 70%"
         />
       </ShadowBox>
       <ShadowBox title="颜色构成" line-color="#2DD3B3">
         <Echart
           :options="colorComposition(colorCompositionData)"
-          style="width: 100%; height: 450px"
+          style="width: 100%; height: 70%"
         />
       </ShadowBox>
     </div>
@@ -223,7 +219,7 @@ export default {
           color: "#664CC7",
         },
       ],
-      timer: null, // 定时器
+      centerLeftTimer: null, // 定时器
       leftLoading: true,
       brandTypeData: [], // 品牌商类型
       brandTypeTitle: [],
@@ -242,21 +238,20 @@ export default {
     this.getCenterScreenDataLeft();
   },
   mounted() {
-    // this.timer = setInterval(() => {
-    //   console.error("定时器执行");
-    //   this.getOrderProductionType();
-    // }, 3000);
+    const centerLeftTimerNum = 1000 * 60 * 60;
+    this.centerLeftTimer = setInterval(() => {
+      this.getCenterScreenDataLeft();
+    }, centerLeftTimerNum);
   },
-  // beforeDestroy() {
-  //   clearInterval(this.timer); // 清除定时器
-  //   this.timer = null;
-  // },
+  beforeDestroy() {
+    clearInterval(this.centerLeftTimer); // 清除定时器
+    this.centerLeftTimer = null;
+  },
   methods: {
     async getCenterScreenDataLeft() {
       const RES = await findCenterScreenDataLeft();
       if (RES && RES.data) {
         const DATA = RES.data;
-        console.log(DATA);
         this.brandTypeData = DATA.channelData;
         this.brandTypeTitle = DATA.channelData.map((item) => item.name);
         this.colorCompositionData = DATA.colorPercentData;
@@ -278,18 +273,7 @@ export default {
           brandSizeList.push(obj);
         });
         this.brandSizeData = brandSizeList;
-        // 处理订单金额 数据格式
-        let orderAmounList = [];
-        Object.getOwnPropertyNames(DATA.priceRangeData[0]).forEach(function (
-          key
-        ) {
-          let obj = {
-            value: DATA.priceRangeData[0][key],
-            name: key,
-          };
-          orderAmounList.push(obj);
-        });
-        this.orderAmountData = orderAmounList;
+        this.orderAmountData = DATA.priceRangeData;
       }
     },
   },
@@ -302,40 +286,46 @@ export default {
   .left-row1 {
     display: flex;
     .left-row1-box1 {
-      display: flex;
       position: relative;
       &__chart {
         position: absolute;
-        top: 188px;
-        right: 130px;
+        top: 30%;
+        right: 10%;
       }
       &__legend {
         position: absolute;
-        top: 188px;
-        left: 70px;
+        top: 30%;
+        left: 10%;
         &__text {
-          font-size: 32px;
+          font-size: 20px;
           font-weight: 400;
           text-align: left;
           color: #c5e4ff;
-          line-height: 38px;
-          margin-bottom: 35px;
+          margin-bottom: 20px;
         }
         :last-child {
           margin-bottom: 0px;
         }
       }
     }
+    .left-row1-box2 {
+      /deep/ .unit-label {
+        opacity: 0;
+      }
+      /deep/ .unit-text {
+        opacity: 0;
+      }
+    }
     .left-row1-box3 {
       position: relative;
       &__chart {
         position: absolute;
-        top: 188px;
-        right: 221px;
+        top: 25%;
+        right: 23%;
       }
       &__legend {
         position: absolute;
-        top: 188px;
+        top: 30%;
         &__text {
           font-size: 32px;
           font-weight: 400;
@@ -349,30 +339,31 @@ export default {
         }
       }
       &__legend__right {
-        left: 70px;
+        left: 5%;
       }
       &__legend__left {
-        right: 70px !important;
+        top: 35%;
+        right: 5% !important;
       }
     }
   }
   .left-row2 {
     display: flex;
-    margin-top: 20px;
+    margin-top: 10px;
     .left-row2-box1__flex {
       display: flex;
       &__title {
-        font-size: 32px;
+        font-size: 20px;
         font-weight: 400;
         text-align: left;
         color: #c5e4ff;
-        margin-left: 80px;
+        margin-left: 40px;
       }
     }
   }
   .left-row3 {
     display: flex;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 }
 </style>

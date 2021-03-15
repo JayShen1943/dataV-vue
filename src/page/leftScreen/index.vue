@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-06 11:00:18
+ * @LastEditTime: 2021-03-15 20:17:11
 -->
 <template>
   <div class="left-screen">
@@ -20,8 +20,9 @@
         <ShadowBox
           title="新增品牌商"
           line-color="none"
-          :width="910"
-          :height="1880"
+          :width="540"
+          :height="1116"
+          class="left-screen-box"
         >
           <div class="new-brand">
             <div class="runden">
@@ -34,7 +35,7 @@
             /> -->
             <Echart
               :options="newbrand(newbrandData)"
-              style="width: 350px; height: 300px"
+              style="width: 300px; height: 200px"
             />
           </div>
           <div class="marken-rank">
@@ -61,7 +62,7 @@
             <div></div>
             <dv-scroll-board
               :config="newMerchants(newMerchantsData)"
-              style="width: 90%; height: 550px; margin-left: 50px"
+              style="width: 95%; height: 300px; margin: auto"
             />
           </div>
         </ShadowBox>
@@ -71,33 +72,39 @@
           <ShadowBox
             title="· 新增订单"
             line-color="none"
-            :width="438"
-            :height="433"
+            :width="241"
+            :height="258"
+            class="left-screen-box"
           >
             <dv-digital-flop :config="config" />
           </ShadowBox>
           <ShadowBox
             title="· 新增件数"
             line-color="none"
-            :width="438"
-            :height="433"
+            :width="293"
+            :height="258"
+            class="left-screen-box"
           >
-            <dv-digital-flop :config="config2" />
+            <dv-digital-flop
+              :config="config2"
+              style="width: 100%; position: relative; top: -14px"
+            />
           </ShadowBox>
           <ShadowBox
             title="· 新增订单金额"
             line-color="none"
-            :width="733"
-            :height="433"
+            :width="436"
+            :height="258"
+            class="left-screen-box"
           >
             <dv-digital-flop
               :config="config3"
-              style="width: 100%; position: relative; top: -80px"
+              style="width: 100%; position: relative; top: -50px"
             />
           </ShadowBox>
         </div>
         <div class="right-box-other">
-          <ShadowBox title="" line-color="none" :width="1656" :height="1420">
+          <ShadowBox title="" line-color="none" :width="990" :height="848">
             <div class="charts">
               <div class="chart-box">
                 <div class="chart-box-title">
@@ -106,7 +113,7 @@
                 <dv-active-ring-chart
                   :config="styleClassification(styleClassificationData)"
                   class="left-row1-box1__chart"
-                  style="width: 100%; height: 460px; margin-top: 40px"
+                  style="width: 100%; height: 250px; margin：auto;margin-top:50px"
                 />
               </div>
               <div class="chart-box">
@@ -115,7 +122,7 @@
                 </div>
                 <Echart
                   :options="serviceType(serviceTypeData)"
-                  style="width: 100%; height: 460px; margin-top: 40px"
+                  style="width: 100%; height: 250px; margin：auto;margin-top:50px"
                 />
               </div>
               <div class="chart-box">
@@ -128,7 +135,7 @@
                 /> -->
                 <Echart
                   :options="amountComposition(amountCompositionData)"
-                  style="width: 100%; height: 460px; margin-top: 40px"
+                  style="width: 90%; height: 250px; margin：auto;margin-top:50px"
                 />
               </div>
             </div>
@@ -138,7 +145,7 @@
               </div>
               <dv-scroll-board
                 :config="newOrderForm(newOrderFormData)"
-                style="width: 95%; height: 550px; margin-left: 40px"
+                style="width: 95%; height: 300px; margin: auto"
               />
             </div>
           </ShadowBox>
@@ -178,10 +185,21 @@ export default {
       newMerchantsData: [], // 新增入驻品牌
       newOrderFormData: [], // 新增订单一览表
       amountCompositionData: [], // 订单金额构成
+      leftTimer: null,
     };
   },
   created() {
     this.getLeftScreenData();
+  },
+  mounted() {
+    const leftTimerNum = 1000 * 60 * 60;
+    this.leftTimer = setInterval(() => {
+      this.getLeftScreenData();
+    }, leftTimerNum);
+  },
+  beforeDestroy() {
+    clearInterval(this.leftTimer); // 清除定时器
+    this.leftTimer = null;
   },
   methods: {
     async getLeftScreenData() {
@@ -218,7 +236,7 @@ export default {
           number: [DATA.recentOrderData[0].orderNum],
           content: "{nt}个",
           style: {
-            fontSize: 90,
+            fontSize: 50,
             fill: "#3de7c9",
           },
         };
@@ -226,7 +244,7 @@ export default {
           number: [DATA.recentOrderData[0].orderQuantity],
           content: "{nt}个",
           style: {
-            fontSize: 90,
+            fontSize: 50,
             fill: "#3de7c9",
           },
         };
@@ -234,7 +252,7 @@ export default {
           number: [DATA.recentOrderData[0].orderTotalPrice],
           content: "{nt}元",
           style: {
-            fontSize: 90,
+            fontSize: 50,
             fill: "#3de7c9",
           },
         };
@@ -242,16 +260,7 @@ export default {
         this.serviceTypeData = DATA.serviceTypeData;
         this.newMerchantsData = DATA.ppsRegisterData;
         this.newOrderFormData = DATA.demandOrderData;
-        this.amountCompositionData = [
-          {
-            value: DATA.priceRangeData[0]["50-100万"],
-            name: "50-100万",
-          },
-          {
-            value: DATA.priceRangeData[0]["100万以上"],
-            name: "100万以上",
-          },
-        ];
+        this.amountCompositionData = DATA.priceRangeData;
       }
     },
   },
@@ -260,19 +269,25 @@ export default {
 
 <style lang="less" scoped>
 .left-screen {
+  .left-screen-box {
+  }
   header {
     position: relative;
     .header-img {
       width: 100%;
+      height: 112px;
+      margin-bottom: 20px;
     }
     .title {
-      font-size: 90px;
+      font-size: 50px;
       color: #ffffff;
       font-weight: 600;
       position: absolute;
       text-align: center;
       top: 13px;
-      right: 44.5%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
     .time {
       position: absolute;
@@ -283,7 +298,7 @@ export default {
     }
   }
   main {
-    padding: 0 50px;
+    padding: 0 28px;
     display: flex;
     .left-box {
       .new-brand {
@@ -291,42 +306,45 @@ export default {
         justify-content: space-around;
         border-top: 2px solid #1572be;
         border-bottom: 2px solid #1572be;
-        padding: 40px 0;
+        padding: 30px 0 20px;
         .runden {
-          width: 277px;
-          height: 277px;
-          border: 20px solid #fcce48;
+          box-sizing: border-box;
+          width: 176px;
+          height: 176px;
+          border: 10px solid #fcce48;
           border-radius: 50%;
           box-shadow: 0px 0px 6px 2px #8e5e00 inset;
           color: #fcce48;
           text-align: center;
           .num {
-            font-size: 100px;
+            font-size: 50px;
             font-weight: 600;
-            margin-top: 50px;
+            margin-top: 30px;
           }
           .text {
-            font-size: 40px;
+            font-size: 24px;
             font-weight: 600;
           }
         }
       }
       .marken-rank {
-        border-top: 2px solid #1572be;
-        border-bottom: 2px solid #1572be;
-        padding: 40px 0;
+        border-top: 1px solid #1572be;
+        border-bottom: 1px solid #1572be;
+        padding: 25px 0;
         .marken-rank-title {
+          display: flex;
+          align-items: center;
           color: #ecf6ff;
           //   -webkit-background-clip: text;
-          font-size: 46px;
-          margin-left: 40px;
+          font-size: 26px;
+          margin-left: 20px;
         }
         .marken-rank-logo {
-          padding-left: 30px;
-          margin-top: 48px;
+          padding: 0 20px;
+          margin-top: 25px;
           img {
-            width: 184px;
-            margin-right: 37px;
+            width: 110px;
+            margin-right: 18px;
           }
         }
         img:nth-child(4) {
@@ -337,13 +355,13 @@ export default {
         }
       }
       .new-merchants {
-        padding: 40px 0;
         .new-merchants-title {
           color: #ecf6ff;
           //   -webkit-background-clip: text;
-          font-size: 46px;
-          margin-left: 40px;
-          margin-bottom: 40px;
+          font-size: 26px;
+          padding: 30px 20px;
+          // margin-left: 20px;
+          // margin-bottom: 20px;
         }
       }
     }
@@ -352,32 +370,32 @@ export default {
         display: flex;
       }
       .right-box-other {
-        margin-top: 20px;
+        margin-top: 10px;
         .charts {
           display: flex;
           border-bottom: 2px solid #1572be;
-          padding-bottom: 55px;
+          padding-bottom: 56px;
           .chart-box {
-            width: 530px;
+            width: 320px;
             text-align: center;
-            margin-top: 60px;
+            margin-top: 30px;
             .chart-box-title {
               background: linear-gradient(0deg, #8fcdff 3%, #ecf6ff 98%);
               -webkit-background-clip: text;
-              font-size: 46px;
+              font-size: 26px;
               color: #ffffff;
-              line-height: 48px;
             }
           }
         }
         .table {
           .table-title {
-            margin: 50px 40px;
+            display: flex;
+            align-items: center;
+            margin: 30px 20px;
             background: linear-gradient(0deg, #8fcdff 3%, #ecf6ff 98%);
             -webkit-background-clip: text;
-            font-size: 46px;
             color: #ffffff;
-            font-size: 46px;
+            font-size: 26px;
           }
         }
       }
