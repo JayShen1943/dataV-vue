@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 23:07:27
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-16 00:13:39
+ * @LastEditTime: 2021-03-16 13:54:13
  */
 const path = require('path')
 
@@ -20,6 +20,15 @@ module.exports = {
                 "secure": false,
                 pathRewrite: {
                     "^/act": "", // 重写路径
+                },
+
+            },
+            "/video": {
+                target: 'https://open.ys7.com',
+                changeOrigin: true,
+                "secure": false,
+                pathRewrite: {
+                    "^/video": "", // 重写路径
                 },
 
             },
