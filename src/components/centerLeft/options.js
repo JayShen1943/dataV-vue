@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 20:00:52
+ * @LastEditTime: 2021-03-17 16:38:25
  */
 // import echarts from "echarts";
 import {
@@ -326,8 +326,14 @@ export const serviceType = (data) => ({
             }
         },
         data: [{
-            value: data.map(item => item.percent)
+            value: data.map(item => {
+                return item.percent
+            })
         }],
+        // data: [{
+        //     value: [5000, 14000, 28000, 31000, 42000, 21000],
+        //     name: '实际开销'
+        // }]
     }]
 })
 // 颜色构成--柱形图
@@ -342,7 +348,7 @@ export const colorComposition = (colorCompositionData) => ({
         left: "10%",
         right: "10%",
         bottom: "8%",
-        top: 0,
+        top: '5%',
         containLabel: true,
     },
     xAxis: {
@@ -381,8 +387,21 @@ export const colorComposition = (colorCompositionData) => ({
         showBackground: true,
         backgroundStyle: {
             color: '#0b1838'
-        }
+        },
+        itemStyle: {
+            normal: {
+                color: function (params) {
+                    var colorList = ['#fff', '#E7A976', '#2CCEAF', '#C76668', '#3DAAEB'];
+                    return colorList[params.dataIndex]
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}%'
+                }
+            }
+        },
     }, ],
-    color: "#3DAAEB",
+    // color: ["#3DAAEB", '#fff'],
     barWidth: 10,
 })
