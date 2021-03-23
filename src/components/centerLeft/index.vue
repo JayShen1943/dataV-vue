@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 20:36:05
+ * @LastEditTime: 2021-03-23 11:55:59
 -->
 <template>
   <div class="left-data">
@@ -141,6 +141,7 @@
     <div class="left-row3">
       <ShadowBox title="服务类型" line-color="#2DD3B3">
         <Echart
+          v-if="serviceTypeData.length"
           :options="serviceType(serviceTypeData)"
           style="width: 90%; height: 70%; margin-left: 20px"
         />

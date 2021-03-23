@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 20:00:52
+ * @LastEditTime: 2021-03-23 13:53:00
  */
 // import echarts from "echarts";
 import {
@@ -120,6 +120,13 @@ export const styleClassification = (data, color, total) => ({
 });
 // 订单金额--柱状图
 export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
+    grid: {
+        left: "5%",
+        right: "5%",
+        bottom: "5%",
+        top: "10%",
+        containLabel: true,
+    },
     xAxis: {
         type: "category",
         data: data.map(item => item.code),
@@ -326,8 +333,14 @@ export const serviceType = (data) => ({
             }
         },
         data: [{
-            value: data.map(item => item.percent)
+            value: data.map(item => {
+                return item.percent
+            })
         }],
+        // data: [{
+        //     value: [5000, 14000, 28000, 31000, 42000, 21000],
+        //     name: '实际开销'
+        // }]
     }]
 })
 // 颜色构成--柱形图
@@ -339,10 +352,10 @@ export const colorComposition = (colorCompositionData) => ({
         },
     },
     grid: {
-        left: "10%",
-        right: "10%",
-        bottom: "8%",
-        top: 0,
+        left: "5%",
+        right: "5%",
+        bottom: "5%",
+        top: "5%",
         containLabel: true,
     },
     xAxis: {
@@ -381,8 +394,21 @@ export const colorComposition = (colorCompositionData) => ({
         showBackground: true,
         backgroundStyle: {
             color: '#0b1838'
-        }
+        },
+        itemStyle: {
+            normal: {
+                color: function (params) {
+                    var colorList = ['#fff', '#E7A976', '#2CCEAF', '#C76668', '#3DAAEB'];
+                    return colorList[params.dataIndex]
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}%'
+                }
+            }
+        },
     }, ],
-    color: "#3DAAEB",
+    // color: ["#3DAAEB", '#fff'],
     barWidth: 10,
 })

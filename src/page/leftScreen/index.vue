@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 20:17:11
+ * @LastEditTime: 2021-03-23 11:52:00
 -->
 <template>
   <div class="left-screen">
@@ -62,7 +62,7 @@
             <div></div>
             <dv-scroll-board
               :config="newMerchants(newMerchantsData)"
-              style="width: 95%; height: 300px; margin: auto"
+              style="width: 95%; height: 310px; margin: auto"
             />
           </div>
         </ShadowBox>
@@ -73,7 +73,7 @@
             title="· 新增订单"
             line-color="none"
             :width="241"
-            :height="258"
+            :height="211"
             class="left-screen-box"
           >
             <dv-digital-flop :config="config" />
@@ -82,7 +82,7 @@
             title="· 新增件数"
             line-color="none"
             :width="293"
-            :height="258"
+            :height="211"
             class="left-screen-box"
           >
             <dv-digital-flop
@@ -94,7 +94,7 @@
             title="· 新增订单金额"
             line-color="none"
             :width="436"
-            :height="258"
+            :height="211"
             class="left-screen-box"
           >
             <dv-digital-flop
@@ -104,7 +104,7 @@
           </ShadowBox>
         </div>
         <div class="right-box-other">
-          <ShadowBox title="" line-color="none" :width="990" :height="848">
+          <ShadowBox title="" line-color="none" :width="990" :height="661">
             <div class="charts">
               <div class="chart-box">
                 <div class="chart-box-title">
@@ -113,7 +113,7 @@
                 <dv-active-ring-chart
                   :config="styleClassification(styleClassificationData)"
                   class="left-row1-box1__chart"
-                  style="width: 100%; height: 250px; margin：auto;margin-top:50px"
+                  style="width: 100%; height: 240px; margin：auto;margin-top:10px"
                 />
               </div>
               <div class="chart-box">
@@ -122,7 +122,7 @@
                 </div>
                 <Echart
                   :options="serviceType(serviceTypeData)"
-                  style="width: 100%; height: 250px; margin：auto;margin-top:50px"
+                  style="width: 100%; height: 240px; margin：auto;margin-top:10px"
                 />
               </div>
               <div class="chart-box">
@@ -135,7 +135,7 @@
                 /> -->
                 <Echart
                   :options="amountComposition(amountCompositionData)"
-                  style="width: 90%; height: 250px; margin：auto;margin-top:50px"
+                  style="width: 90%; height: 240px; margin：auto;margin-top:10px"
                 />
               </div>
             </div>
@@ -145,18 +145,24 @@
               </div>
               <dv-scroll-board
                 :config="newOrderForm(newOrderFormData)"
-                style="width: 95%; height: 300px; margin: auto"
+                style="width: 95%; height: 230px; margin: auto"
               />
             </div>
           </ShadowBox>
         </div>
+        <Shadow-box :width="990" :height="224" class="order-progress">
+          <dv-scroll-board
+            :config="orderProgress(orderProgressData)"
+            style="width: 99%; height: 97%; margin: 0.5% auto 0"
+          />
+        </Shadow-box>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import { findLeftScreenData } from "@/service/api";
+import { findLeftScreenData, findScreenProcessData } from "@/service/api";
 import {
   newbrand,
   newMerchants,
@@ -164,8 +170,11 @@ import {
   serviceType,
   amountComposition,
   newOrderForm,
+  orderProgress,
 } from "./options";
+import shadowBox from "../../common/shadowBox.vue";
 export default {
+  components: { shadowBox },
   name: "LeftScreen",
   data() {
     return {
@@ -175,6 +184,7 @@ export default {
       serviceType,
       amountComposition,
       newOrderForm,
+      orderProgress,
       config: {},
       config2: {},
       config3: {},
@@ -184,17 +194,18 @@ export default {
       serviceTypeData: [], // 服务类型
       newMerchantsData: [], // 新增入驻品牌
       newOrderFormData: [], // 新增订单一览表
+      orderProgressData: [], // 订单进度
       amountCompositionData: [], // 订单金额构成
       leftTimer: null,
     };
   },
   created() {
-    this.getLeftScreenData();
+    this.init();
   },
   mounted() {
     const leftTimerNum = 1000 * 60 * 60;
     this.leftTimer = setInterval(() => {
-      this.getLeftScreenData();
+      this.init();
     }, leftTimerNum);
   },
   beforeDestroy() {
@@ -202,6 +213,10 @@ export default {
     this.leftTimer = null;
   },
   methods: {
+    init() {
+      this.getLeftScreenData();
+      this.getScreenProcessData();
+    },
     async getLeftScreenData() {
       const RES = await findLeftScreenData();
       if (RES && RES.data) {
@@ -261,6 +276,14 @@ export default {
         this.newMerchantsData = DATA.ppsRegisterData;
         this.newOrderFormData = DATA.demandOrderData;
         this.amountCompositionData = DATA.priceRangeData;
+      }
+    },
+    // 获取生产进度数据
+    async getScreenProcessData() {
+      const RES = await findScreenProcessData();
+      if (RES && RES.data) {
+        // 需求进度
+        this.orderProgressData = RES.data.orderAdvanceProcessList;
       }
     },
   },
@@ -370,15 +393,15 @@ export default {
         display: flex;
       }
       .right-box-other {
-        margin-top: 10px;
+        margin: 10px 0;
         .charts {
           display: flex;
           border-bottom: 2px solid #1572be;
-          padding-bottom: 56px;
+          padding-bottom: 10px;
           .chart-box {
             width: 320px;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 20px;
             .chart-box-title {
               background: linear-gradient(0deg, #8fcdff 3%, #ecf6ff 98%);
               -webkit-background-clip: text;
@@ -396,6 +419,38 @@ export default {
             -webkit-background-clip: text;
             color: #ffffff;
             font-size: 26px;
+          }
+        }
+      }
+      .order-progress {
+        /deep/ .rows {
+          .yellowRound {
+            img {
+              width: 22px;
+              vertical-align: middle;
+            }
+          }
+          .greenRound {
+            img {
+              width: 14px;
+              vertical-align: middle;
+            }
+          }
+          .row-item {
+            position: relative;
+            z-index: 5;
+            &::before {
+              position: absolute;
+              display: block;
+              content: "";
+              top: 50%;
+              left: 30%;
+              width: 65%;
+              transform: scaleY(2); /*沿Y轴方向缩放*/
+              height: 1px;
+              background: #051029;
+              z-index: -1;
+            }
           }
         }
       }
