@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:06:12
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-16 16:56:47
+ * @LastEditTime: 2021-03-23 15:21:37
 -->
 <template>
   <div>
@@ -60,9 +60,9 @@ export default {
             withCredentials: false,
             type: "application/x-mpegURL",
             // src:
-            //   "http://1252093142.vod2.myqcloud.com/4704461fvodcq1252093142/f865d8a05285890787810776469/playlist.f3.m3u8",
+            //   "/video/3HKE024282PDAJA_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810",
             src:
-              "http://wx19.sdvideo.cn:9999/3HKCC140818C7XM_0.m3u8?key=840e0161000598f5c5a925f2eb7362d8",
+              "http://wx19.sdvideo.cn:9999/3HKCC140818C7XM_0.m3u8?key=840e0161000598f5c5a925f2eb7362d8", // 测试地址
           },
         ],
       },
