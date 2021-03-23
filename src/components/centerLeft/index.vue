@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-17 16:40:11
+ * @LastEditTime: 2021-03-23 11:55:59
 -->
 <template>
   <div class="left-data">
@@ -262,7 +262,6 @@ export default {
         });
         this.orderGrowthData = DATA.orderMonthData;
         this.serviceTypeData = DATA.requirementTypeData;
-        console.log(DATA.requirementTypeData);
         this.orderProductionTypeData = DATA.ooperationTypeData;
         this.geographicalDistributionData = DATA.regionData;
         // 处理品牌商规模数据格式

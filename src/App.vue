@@ -3,13 +3,13 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-22 15:41:13
+ * @LastEditTime: 2021-03-23 11:57:23
 -->
 <template>
   <div id="app">
-    <!-- <dv-full-screen-container class="all-bg"> -->
+    <dv-full-screen-container class="all-bg">
       <router-view> </router-view>
-    <!-- </dv-full-screen-container> -->
+    </dv-full-screen-container>
   </div>
 </template>
 

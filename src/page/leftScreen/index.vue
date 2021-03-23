@@ -282,7 +282,6 @@ export default {
     async getScreenProcessData() {
       const RES = await findScreenProcessData();
       if (RES && RES.data) {
-        console.log(RES.data.orderAdvanceProcessList);
         // 需求进度
         this.orderProgressData = RES.data.orderAdvanceProcessList;
       }
