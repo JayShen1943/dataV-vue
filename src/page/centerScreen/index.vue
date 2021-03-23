@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 18:12:19
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 18:27:56
+ * @LastEditTime: 2021-03-22 15:43:42
 -->
 <template>
   <div class="center">
@@ -16,7 +16,7 @@
     </header>
     <main>
       <CenterLeft />
-      <Banner />
+      <BannerMap />
       <CenterRight />
     </main>
   </div>
@@ -26,13 +26,13 @@
 import { formatTime } from "@/utils/tootls";
 import CenterLeft from "@/components/centerLeft";
 import CenterRight from "@/components/centerRight";
-import Banner from "@/components/banner";
+import BannerMap from "@/components/bannerMap";
 export default {
   name: "Center",
   components: {
     CenterLeft,
     CenterRight,
-    Banner,
+    BannerMap,
   },
   data() {
     return {

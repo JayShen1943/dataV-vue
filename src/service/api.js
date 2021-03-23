@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 21:50:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-16 00:12:36
+ * @LastEditTime: 2021-03-23 09:29:04
  */
 import request from '@/utils/request'
 // import {
@@ -48,6 +48,15 @@ export function findLeftScreenData(params) {
 export function findRightScreenData(params) {
     return request({
         url: '/act/Isonoe/client/synthesis/findRightScreenData',
+        method: 'post',
+        params
+    })
+}
+
+// 生产进度数据
+export const findScreenProcessData = (params) => {
+    return request({
+        url: '/act/Isonoe/client/synthesis/findScreenProcessData',
         method: 'post',
         params
     })

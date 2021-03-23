@@ -3,10 +3,11 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:17:50
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 19:52:55
+ * @LastEditTime: 2021-03-23 11:51:31
  */
+import greenRound from "@/assets/image/icon/greenRound.png"
+import yellowRound from "@/assets/image/icon/yellowRound.png"
 import {
-    // pieColor,
     pieColor2
 } from "@/utils/echartColor";
 import echarts from "echarts";
@@ -65,7 +66,7 @@ export const newbrand = (data) => ({
 })
 // 新增入驻品牌商--表格
 export const newMerchants = (data) => ({
-    header: ['名称', '类型', '入驻时间'],
+    header: ['<span style="color:#050D1D">名称</span>', '<span style="color:#050D1D">类型</span>', '<span style="color:#050D1D">入驻时间</span>'],
     headerBGC: '#15B1AF',
     data: data.map(item => {
         return [
@@ -197,9 +198,10 @@ export const amountComposition = (data) => ({
 })
 // 新增订单一览表
 export const newOrderForm = (data) => ({
-    header: ['订单编号', '品牌商', '款式', '数量', '下单时间'],
+    header: ['<span style="color:#050D1D">订单编号</span>', '<span style="color:#050D1D">品牌商</span>', '<span style="color:#050D1D">款式</span>', '<span style="color:#050D1D">数量</span>', '<span style="color:#050D1D">下单时间</span>'],
     headerBGC: '#15B1AF',
-    columnWidth:[300],
+    columnWidth: [300],
+    rowNum: 4,
     data: data.map(item => {
         return [
             item.serialNumber,
@@ -207,6 +209,38 @@ export const newOrderForm = (data) => ({
             item.clazz,
             item.quantity,
             item.addTime
+        ]
+    })
+})
+const yellow = `<span class="yellowRound"><img src="${yellowRound}" /></span>`
+const green = `<span class="greenRound"><img src="${greenRound}"/></span> `
+// 订单进度
+export const orderProgress = (data) => ({
+    header: ['<span style="color:#050D1D;font-weight: 600;font-size:18px"><span style="display: inline-block; vertical-align: middle; background: rgb(252, 206, 72);width: 4px;height: 16px; margin: 0px 10px; "></span>订单进度</span>',
+        '<span style= "color:#050D1D"> 设计</span>',
+        '<span style= "color:#050D1D"> 报价</span>',
+        '<span style="color:#050D1D">制版</span>',
+        '<span style="color:#050D1D">下单</span>',
+        '<span style="color:#050D1D">采购</span>',
+        '<span style="color:#050D1D">生产</span>',
+        '<span style="color:#050D1D">验收</span>',
+        '<span style="color:#050D1D">出货</span>',
+    ],
+    headerBGC: '#15B1AF',
+    columnWidth: [240],
+    rowNum: 3,
+    align: ['left', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', ],
+    data: data.map(item => {
+        return [
+            item.serialNumber,
+            item.designFlag ? yellow : green,
+            item.quoteFlag ? yellow : green,
+            item.sampleFlag ? yellow : green,
+            item.demandRequestFlag ? yellow : green,
+            item.purchaseFinishFlag ? yellow : green,
+            item.productionFlag ? yellow : green,
+            item.acceptanceFlag ? yellow : green,
+            item.outFlag ? yellow : green,
         ]
     })
 })

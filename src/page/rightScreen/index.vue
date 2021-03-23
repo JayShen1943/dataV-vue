@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 20:59:48
+ * @LastEditTime: 2021-03-23 11:49:25
 -->
 <template>
   <div class="right-screen">
@@ -20,57 +20,57 @@
         <ShadowBox
           title="· 设计打版"
           line-color="none"
-          :width="254"
-          :height="228"
+          :width="259"
+          :height="212"
         >
           <dv-digital-flop
             :config="digitalFlop1"
             style="position: relative; top: -26px"
           />
-          <div class="unit" style="top: -54px">件</div>
+          <div class="unit" style="top: -60px">件</div>
         </ShadowBox>
         <ShadowBox
           title="· 面辅料采购"
           line-color="none"
-          :width="254"
-          :height="228"
+          :width="259"
+          :height="212"
         >
           <dv-digital-flop
             :config="digitalFlop2"
             style="position: relative; top: -26px"
           />
-          <div class="unit" style="top: -54px">笔</div>
+          <div class="unit" style="top: -60px">笔</div>
         </ShadowBox>
         <ShadowBox
           title="· 生产中"
           line-color="none"
-          :width="323"
-          :height="228"
+          :width="328"
+          :height="212"
         >
           <dv-digital-flop
             :config="digitalFlop3"
             style="position: relative; top: -46px"
           />
-          <div class="unit" style="top: -90px">件</div>
+          <div class="unit" style="top: -96px">件</div>
         </ShadowBox>
         <ShadowBox
           title="· 验收入库"
           line-color="none"
           :width="327"
-          :height="228"
+          :height="212"
         >
           <dv-digital-flop
             :config="digitalFlop4"
             style="position: relative; top: -52px"
           />
-          <div class="unit" style="top: -93px">件</div>
+          <div class="unit" style="top: -99px">件</div>
         </ShadowBox>
-        <ShadowBox title="· 交付" line-color="none" :width="322" :height="228">
+        <ShadowBox title="· 交付" line-color="none" :width="322" :height="212">
           <dv-digital-flop
             :config="digitalFlop5"
             style="position: relative; top: -56px"
           />
-          <div class="unit" style="top: -95px">件</div>
+          <div class="unit" style="top: -96px">件</div>
         </ShadowBox>
       </div>
       <div class="right-screen-row2">
@@ -78,7 +78,7 @@
           title="设计打版进度一览表"
           line-color="#2DD3B3"
           :width="755"
-          :height="410"
+          :height="300"
         >
           <dv-scroll-board
             :config="designTable(designTableData)"
@@ -89,7 +89,7 @@
           title="面辅料采购一览表"
           line-color="#2DD3B3"
           :width="773"
-          :height="410"
+          :height="300"
         >
           <dv-scroll-board
             :config="purchaseTable(purchaseTableData)"
@@ -102,11 +102,35 @@
           title="新增订单一览表"
           line-color="#2DD3B3"
           :width="1540"
-          :height="438"
+          :height="340"
         >
           <dv-scroll-board
             :config="newOrderTable(newOrderTableData)"
-            style="width: 95%; height: 70%; margin: auto"
+            style="width: 97%; height: 72%; margin: auto"
+          />
+        </ShadowBox>
+      </div>
+      <div class="right-screen-row4">
+        <ShadowBox
+          line-color="#2DD3B3"
+          :width="685"
+          :height="236"
+          class="right-screen-row4__box1"
+        >
+          <dv-scroll-board
+            :config="makingProgress(makingProgressData)"
+            style="width: 99%; height: 97%; margin: 0.5% auto 0"
+          />
+        </ShadowBox>
+        <ShadowBox
+          line-color="#2DD3B3"
+          :width="848"
+          :height="236"
+          class="right-screen-row4__box2"
+        >
+          <dv-scroll-board
+            :config="productionProgress(productionProgressData)"
+            style="width: 99%; height: 97%; margin: 0.5% auto 0"
           />
         </ShadowBox>
       </div>
@@ -115,8 +139,14 @@
 </template>
 
 <script>
-import { findRightScreenData } from "@/service/api";
-import { designTable, purchaseTable, newOrderTable } from "./options";
+import { findRightScreenData, findScreenProcessData } from "@/service/api";
+import {
+  designTable,
+  purchaseTable,
+  newOrderTable,
+  makingProgress,
+  productionProgress,
+} from "./options";
 import { formatter } from "@/utils/tootls";
 export default {
   name: "RightScreen",
@@ -125,6 +155,8 @@ export default {
       designTable,
       purchaseTable,
       newOrderTable,
+      makingProgress,
+      productionProgress,
       digitalFlop1: {},
       digitalFlop2: {},
       digitalFlop3: {},
@@ -133,16 +165,18 @@ export default {
       purchaseTableData: [], // 面辅料采购一览表
       designTableData: [], // 设计打版进度
       newOrderTableData: [], // 订单一览表
+      makingProgressData: [], //  打版进度
+      productionProgressData: [], // 生产进度
       rightTimer: null,
     };
   },
   created() {
-    this.getRightScreenData();
+    this.init();
   },
   mounted() {
     const rightTimerNum = 1000 * 60 * 60;
     this.rightTimer = setInterval(() => {
-      this.getRightScreenData();
+      this.init();
     }, rightTimerNum);
   },
   beforeDestroy() {
@@ -150,6 +184,10 @@ export default {
     this.rightTimer = null;
   },
   methods: {
+    init() {
+      this.getRightScreenData();
+      this.getScreenProcessData();
+    },
     async getRightScreenData() {
       const RES = await findRightScreenData();
       if (RES && RES.data) {
@@ -204,6 +242,16 @@ export default {
         };
       }
     },
+    // 获取生产进度数据
+    async getScreenProcessData() {
+      const RES = await findScreenProcessData();
+      if (RES && RES.data) {
+        // 打版进度
+        this.makingProgressData = RES.data.designSampleMakeProcessList;
+        // 生产进度
+        this.productionProgressData = RES.data.productionProcessList;
+      }
+    },
   },
 };
 </script>
@@ -251,12 +299,73 @@ export default {
     .right-screen-row2 {
       display: flex;
       // justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 10px;
+      /deep/ .shadow-box__title {
+        margin: 20px 0 20px 10px;
+      }
     }
     .right-screen-row3 {
       display: flex;
       // justify-content: space-between;
-      margin-top: 20px;
+      margin: 10px 0;
+      /deep/ .shadow-box__title {
+        margin: 20px 0 20px 10px;
+      }
+    }
+    .right-screen-row4 {
+      display: flex;
+      /deep/ .rows {
+        .yellowRound {
+          img {
+            width: 22px;
+            vertical-align: middle;
+          }
+        }
+        .greenRound {
+          img {
+            width: 14px;
+            vertical-align: middle;
+          }
+        }
+        .row-item {
+          position: relative;
+          z-index: 5;
+          &::before {
+            position: absolute;
+            top: 50%;
+            display: block;
+            content: "";
+            height: 1px;
+            background: #051029;
+            z-index: -1;
+          }
+        }
+      }
+      &__box1 {
+        /deep/ .rows {
+          .row-item {
+            &::before {
+              left: 26%;
+              width: 66%;
+              transform: scaleY(2); /*沿Y轴方向缩放*/
+            }
+          }
+        }
+      }
+      &__box2 {
+        /deep/ .rows {
+          .row-item {
+            &::before {
+              left: 35%;
+              width: 58%;
+              transform: scaleY(2); /*沿Y轴方向缩放*/
+            }
+          }
+        }
+      }
+    }
+    /deep/ .header-item {
+      color: #050d1d;
     }
   }
 }

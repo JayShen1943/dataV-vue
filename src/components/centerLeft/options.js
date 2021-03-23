@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-17 16:38:25
+ * @LastEditTime: 2021-03-19 10:47:14
  */
 // import echarts from "echarts";
 import {
@@ -120,6 +120,13 @@ export const styleClassification = (data, color, total) => ({
 });
 // 订单金额--柱状图
 export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
+    grid: {
+        left: "5%",
+        right: "5%",
+        bottom: "5%",
+        top: "5%",
+        containLabel: true,
+    },
     xAxis: {
         type: "category",
         data: data.map(item => item.code),
@@ -345,10 +352,10 @@ export const colorComposition = (colorCompositionData) => ({
         },
     },
     grid: {
-        left: "10%",
-        right: "10%",
-        bottom: "8%",
-        top: '5%',
+        left: "5%",
+        right: "5%",
+        bottom: "5%",
+        top: "5%",
         containLabel: true,
     },
     xAxis: {
