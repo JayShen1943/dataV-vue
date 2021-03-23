@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-19 10:47:14
+ * @LastEditTime: 2021-03-23 13:53:00
  */
 // import echarts from "echarts";
 import {
@@ -124,7 +124,7 @@ export const orderAmount = (data = [12, 3, 44, 23, 5, 56]) => ({
         left: "5%",
         right: "5%",
         bottom: "5%",
-        top: "5%",
+        top: "10%",
         containLabel: true,
     },
     xAxis: {
