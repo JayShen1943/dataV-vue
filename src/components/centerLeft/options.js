@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-23 13:53:00
+ * @LastEditTime: 2021-03-24 19:44:55
  */
 // import echarts from "echarts";
 import {
@@ -14,14 +14,15 @@ import {
 export const brandType = (data) => ({
     data: data.map(item => {
         return {
-            value: item.value
+            value: item.value,
+            name: item.name
         }
     }),
     lineWidth: 35,
     radius: "70%",
     activeRadius: "75%",
     digitalFlopStyle: {
-        fontSize: 0,
+        // fontSize: 20,
         fill: "#fff",
     },
     color: pieColor,
