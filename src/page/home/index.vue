@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:06:12
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-23 15:21:37
+ * @LastEditTime: 2021-03-30 13:43:33
 -->
 <template>
   <div>
@@ -59,10 +59,10 @@ export default {
           {
             withCredentials: false,
             type: "application/x-mpegURL",
-            // src:
-            //   "/video/3HKE024282PDAJA_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810",
             src:
-              "http://wx19.sdvideo.cn:9999/3HKCC140818C7XM_0.m3u8?key=840e0161000598f5c5a925f2eb7362d8", // 测试地址
+              "http://wx19.sdvideo.cn:9999/3HKE024282PDAJA_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810",
+            // src:
+            //   "http://wx19.sdvideo.cn:9999/3HKCC140818C7XM_0.m3u8?key=840e0161000598f5c5a925f2eb7362d8", // 测试地址
           },
         ],
       },
