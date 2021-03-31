@@ -75,7 +75,7 @@ const cityData = {
     {
       name: '杭州',
       value: [120.15507, 30.274085, 10],
-      symbolSize: 14,
+      symbolSize: 10,
       itemStyle: {
         normal: {
           color: '#58B3CC',
@@ -675,10 +675,10 @@ const cityData = {
     {
       name: '广州',
       value: [113.264435, 23.129163, 13],
-      symbolSize: 2,
+      symbolSize: 13,
       itemStyle: {
         normal: {
-          color: '#F58158',
+          color: '#58B3CC',
         },
       },
     },

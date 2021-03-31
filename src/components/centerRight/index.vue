@@ -3,19 +3,19 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 20:24:48
+ * @LastEditTime: 2021-03-31 23:19:19
 -->
 <template>
   <div class="right-data">
     <div class="right-row1">
-      <ShadowBox title="面料供应商" line-color="#3C97D5">
+      <ShadowBox title="面辅料供应商占比" line-color="#3C97D5">
         <Echart
           :options="fabricSupplier(fabricSupplierData)"
           style="width: 100%; height: 70%; margin: auto"
         />
       </ShadowBox>
       <ShadowBox
-        title="面辅料供应地域分布"
+        title="面辅料供应商地域分布"
         line-color="#FCCE48 "
         class="right-row1-box1"
       >
@@ -32,15 +32,19 @@
       </ShadowBox>
     </div>
     <div class="right-row2">
-      <ShadowBox title="工艺商" line-color="#2DD3B3 ">
+      <ShadowBox title="工艺占比" line-color="#2DD3B3 ">
         <dv-active-ring-chart
           :config="craftsman(techniqueSupplierData)"
           class="left-row1-box1__chart"
           style="width: 80%; height: 70%; margin: auto"
         />
       </ShadowBox>
-      <ShadowBox title="分销商" line-color="#2DD3B3 ">
-        <div class="right-row2-box1__flex">
+      <ShadowBox title="工艺供应商地域分布" line-color="#2DD3B3 ">
+        <dv-capsule-chart
+          :config="distributor()"
+          style="width: 80%; height: 70%; margin: auto"
+        />
+        <!-- <div class="right-row2-box1__flex">
           <div class="right-row2-box1__flex__title">跨境</div>
           <Echart
             :options="sellers(20, ['#FCCE48', '#1765A5'])"
@@ -58,16 +62,16 @@
             :options="sellers(17, ['#2DD3B3', '#1765A5'])"
             style="width: 130px; height: 130px"
           />
-          <div class="right-row2-box1__flex__title">其他</div>
+          <div class="right-row2-box1__flex__title">门店</div>
           <Echart
             :options="sellers(79, ['#664CC7', '#1765A5'])"
             style="width: 130px; height: 130px"
           />
-        </div>
+        </div> -->
       </ShadowBox>
-      <ShadowBox title="生产基地满意度排名" line-color="#67A6E0">
+      <ShadowBox title="打版工作室满意度排名" line-color="#67A6E0">
         <dv-scroll-board
-          :config="designerRank2()"
+          :config="patternSupplierScore(patternSupplierScoreData)"
           style="width: 95%; height: 70%; margin: auto"
       /></ShadowBox>
     </div>
@@ -78,10 +82,10 @@
         </h3>
         <dv-scroll-board
           :config="factoryDistribution(factoryDistributionData)"
-          style="width: 95%; height: 70%; margin: auto"
+          style="width: 95%; height: 85%; margin: auto"
         />
       </div>
-      <ShadowBox title="工厂接单排名" line-color="#E7A976">
+      <ShadowBox title="生产供应商满意度排名" line-color="#E7A976">
         <dv-scroll-board
           :config="factoryRank(factoryRankData)"
           style="width: 95%; height: 70%; margin: auto"
@@ -97,11 +101,12 @@ import {
   fabricSupplier,
   fabricSupplierDistributed,
   designerRank,
-  designerRank2,
+  patternSupplierScore,
   factoryRank,
   craftsman,
   factoryDistribution,
   sellers,
+  distributor
 } from "./options";
 export default {
   name: "CenterRight",
@@ -110,17 +115,19 @@ export default {
       fabricSupplier,
       fabricSupplierDistributed,
       designerRank,
-      designerRank2,
+      patternSupplierScore,
       factoryRank,
       craftsman,
       factoryDistribution,
       sellers,
+      distributor,
       fabricSupplierData: [], // 面料供应商 饼图
       fabricSupplierDistributedData: [], // 面辅料地域分布 柱形图
       factoryRankData: [], // 工厂接单排名
       designerRankDATA: [], // 设计师满意度排名
       factoryDistributionData: [], // 各区域工厂产能分布
       techniqueSupplierData: [], // 工艺商
+      patternSupplierScoreData: [], // 打板工作室
       centerRightTimer: null,
     };
   },
@@ -148,6 +155,8 @@ export default {
         this.factoryRankData = DATA.factoryListData;
         this.designerRankDATA = DATA.designScoreData;
         this.factoryDistributionData = DATA.regionCapacityData;
+        //  打版工作室
+        this.patternSupplierScoreData = DATA.patternSupplierScoreData;
       }
     },
   },
@@ -161,12 +170,12 @@ export default {
   .right-row1 {
     display: flex;
     .right-row1-box1 {
-      /deep/ .unit-label {
-        opacity: 0;
-      }
-      /deep/ .unit-text {
-        opacity: 0;
-      }
+      // /deep/ .unit-label {
+      //   opacity: 0;
+      // }
+      // /deep/ .unit-text {
+      //   opacity: 0;
+      // }
     }
   }
   .right-row2 {

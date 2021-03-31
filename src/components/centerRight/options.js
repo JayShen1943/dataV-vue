@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 11:11:21
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-15 20:06:45
+ * @LastEditTime: 2021-03-31 23:13:03
  */
 import {
     pieColor,
@@ -63,63 +63,66 @@ export const fabricSupplierDistributed = (data) => ({
         }
     }),
     colors: ['#FCCE48', '#FCCE48', '#FCCE48', '#FCCE48', '#FCCE48'],
-    // unit: '单位',
+    unit: '单位：家',
     showValue: true
 })
+const starIcon = '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
 // 设计师满意度排名1
 export const designerRank = (data) => ({
     header: ['姓名', '满意度'],
     headerBGC: '#15B1AF',
     // oddRowBGC: '#0B86C2',
     // evenRowBGC: '',
+    // align: ['center', 'center'],
+    columnWidth: [250],
     data: data.map(item => {
         return [
             item.designer,
-            '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+            starIcon
         ]
     })
 })
 // 设计师满意度排名2
-export const designerRank2 = (data = [{
+export const patternSupplierScore = (data = [{
         name: '智通生产基地',
         area: '广州',
-        html: '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+        html: starIcon
     }, {
         name: '三鑫生产基地',
         area: '杭州',
-        html: '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+        html: starIcon
     },
     {
         name: '于都生产基地',
         area: '赣州',
-        html: '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+        html: starIcon
     },
     {
         name: '千百万生产基地',
         area: '杭州',
-        html: '<span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span> <span class="iconfont icon-wujiaoxing"></span><span class="iconfont icon-wujiaoxing"></span>'
+        html: starIcon
     },
 ]) => ({
-    header: ['名称', '区域', '满意度'],
+    header: ['名称', '满意度'],
     headerBGC: '#67A6E0',
     rowNum: 4,
+    columnWidth: [250],
     data: data.map(item => {
         return [
             item.name,
-            item.area,
-            item.html
+            starIcon
         ]
     })
 })
 // 工厂接单排名
 export const factoryRank = (data) => ({
-    header: ['名称', '数量', '排名'],
+    header: ['名称', '满意度'],
     headerBGC: '#E7A976',
     data: data.map((item, index) => {
         return [
             item.productionSupplierName,
-            item.orderDetailNum,
-            index + 1,
+            // item.orderDetailNum,
+            starIcon,
         ]
     }),
     columnWidth: [250]
@@ -185,15 +188,45 @@ export const sellers = (data, color) => ({
 });
 // 各地区域工厂产能分布
 export const factoryDistribution = (data) => ({
-    header: ['区域', '企业数量', '总产能(件)', '设备联网数(台)', '就业人数'],
+    header: ['区域', '企业数量', '总产能(件)', '就业人数'],
     headerBGC: '#15B1AF',
     data: data.map(item => {
         return [
             item.area,
             item.companyNum,
             item.totalCapacity,
-            item.deviceNum,
             item.employeeNum,
         ]
     })
+})
+// 分销商
+export const distributor = (data) => ({
+    data: [{
+            name: '广州',
+            value: 137
+        },
+        {
+            name: '东莞',
+            value: 10
+        },
+        {
+            name: '中山',
+            value: 5
+        },
+        {
+            name: '佛山',
+            value: 29
+        },
+        {
+            name: '赣州',
+            value: 20
+        },
+        {
+            name: '杭州',
+            value: 16
+        },
+    ],
+    colors: ['#3DAAEB', '#3DAAEB', '#3DAAEB', '#3DAAEB', '#3DAAEB', '#3DAAEB'],
+    unit: '单位：家',
+    showValue: true
 })

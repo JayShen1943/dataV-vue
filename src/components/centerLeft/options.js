@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-24 19:44:55
+ * @LastEditTime: 2021-03-31 23:01:49
  */
 // import echarts from "echarts";
 import {
@@ -270,7 +270,7 @@ export const orderProductionType = (data = [{
         // name: "访问来源",
         type: "pie",
         radius: "80%",
-        color: ['#664CC7', '#3DAAEB'],
+        color: ['#FCCE48', '#60CAAE'],
         data: data.map(item => {
             return {
                 value: item.num,
@@ -284,6 +284,14 @@ export const orderProductionType = (data = [{
                 shadowColor: "rgba(0, 0, 0, 0.5)",
             },
         },
+        // 指示线文字
+        label: {
+            normal: {
+                formatter: "{d}%", //数值和百分比
+                fontSize: 16,
+            }
+
+        }
     }, ],
 })
 
@@ -365,7 +373,7 @@ export const colorComposition = (colorCompositionData) => ({
     yAxis: {
         type: "category",
         data: colorCompositionData.map((item) => {
-            return item.colorName
+            return item.name
         }),
         splitLine: {
             show: false,
@@ -381,7 +389,7 @@ export const colorComposition = (colorCompositionData) => ({
         name: "2011年",
         type: "bar",
         data: colorCompositionData.map((item) => {
-            return item.percent * 100
+            return item.value
         }),
         // 柱形图数据展示
         label: {
@@ -412,4 +420,38 @@ export const colorComposition = (colorCompositionData) => ({
     }, ],
     // color: ["#3DAAEB", '#fff'],
     barWidth: 10,
+})
+// 品牌商订单排行
+export const ppsRankList = (data) => ({
+    header: ['名称', '数量', '排名'],
+    headerBGC: '#15B1AF',
+    // oddRowBGC: '#0B86C2',
+    // evenRowBGC: '',
+    columnWidth: [160],
+    align: ['left', 'center', 'center'],
+    data: data.map((item, index) => {
+        return [
+            item.customerName,
+            item.quantity,
+            index
+        ]
+    })
+})
+
+
+// 分销商订单排行
+export const fxsRankList = (data) => ({
+    header: ['名称', '数量', '排名'],
+    headerBGC: '#FCCE48',
+    // oddRowBGC: '#0B86C2',
+    // evenRowBGC: '',
+    align: ['left', 'center', 'center'],
+    columnWidth: [160],
+    data: data.map((item, index) => {
+        return [
+            item.customerName,
+            item.quantity,
+            index
+        ]
+    })
 })
