@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-31 21:25:43
+ * @LastEditTime: 2021-04-01 00:24:23
 -->
 <template>
   <div class="left-screen">
@@ -92,14 +92,10 @@
         <div class="left-box">
           <Shadow-box :width="540" :height="550" class="order-progress">
             <div class="new-merchants">
-              <div class="new-merchants-title">
-                <verticalLine />
-                新入驻客户
-              </div>
               <div></div>
               <dv-scroll-board
                 :config="newMerchants(newMerchantsData)"
-                style="width: 95%; height: 440px; margin: auto"
+                style="width: 99%; height: 535px; margin: 0.5% auto 0"
               />
             </div>
           </Shadow-box>
@@ -442,7 +438,7 @@ export default {
             .num {
               font-size: 50px;
               font-weight: 600;
-              margin-top: 30px;
+              margin-top: 20px;
             }
             .text {
               font-size: 24px;

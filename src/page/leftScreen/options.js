@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:17:50
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-31 20:54:45
+ * @LastEditTime: 2021-04-01 00:22:57
  */
 import greenRound from "@/assets/image/icon/greenRound.png"
 import yellowRound from "@/assets/image/icon/yellowRound.png"
@@ -120,7 +120,9 @@ export const newDistributor = (data) => ({
 })
 // 新增入驻品牌商--表格
 export const newMerchants = (data) => ({
-    header: ['<span style="color:#050D1D">名称</span>', '<span style="color:#050D1D">类型</span>', '<span style="color:#050D1D">入驻时间</span>'],
+    header: ['<span style="color:#050D1D;font-weight: 600;font-size:18px"><span style="display: inline-block; vertical-align: middle; background: rgb(252, 206, 72);width: 4px;height: 16px; margin: 0px 10px; "></span>新入驻客户</span>',
+        '<span style="color:#050D1D">类型</span>', '<span style="color:#050D1D">入驻时间</span>'
+    ],
     headerBGC: '#15B1AF',
     rowNum: 10,
     data: data.map(item => {

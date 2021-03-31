@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-31 23:19:19
+ * @LastEditTime: 2021-04-01 00:18:36
 -->
 <template>
   <div class="right-data">
@@ -24,7 +24,7 @@
           style="width: 80%; height: 70%; margin: auto"
         />
       </ShadowBox>
-      <ShadowBox title="设计师满意度排名" line-color="#2DD3B3 ">
+      <ShadowBox title="设计师满意度" line-color="#2DD3B3 ">
         <dv-scroll-board
           :config="designerRank(designerRankDATA)"
           style="width: 95%; height: 70%; margin: auto"
@@ -69,7 +69,7 @@
           />
         </div> -->
       </ShadowBox>
-      <ShadowBox title="打版工作室满意度排名" line-color="#67A6E0">
+      <ShadowBox title="打版工作室满意度" line-color="#67A6E0">
         <dv-scroll-board
           :config="patternSupplierScore(patternSupplierScoreData)"
           style="width: 95%; height: 70%; margin: auto"
@@ -85,7 +85,7 @@
           style="width: 95%; height: 85%; margin: auto"
         />
       </div>
-      <ShadowBox title="生产供应商满意度排名" line-color="#E7A976">
+      <ShadowBox title="生产供应商满意度" line-color="#E7A976">
         <dv-scroll-board
           :config="factoryRank(factoryRankData)"
           style="width: 95%; height: 70%; margin: auto"
