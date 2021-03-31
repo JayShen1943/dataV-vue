@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:17:50
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-23 11:51:31
+ * @LastEditTime: 2021-03-31 20:54:45
  */
 import greenRound from "@/assets/image/icon/greenRound.png"
 import yellowRound from "@/assets/image/icon/yellowRound.png"
@@ -53,7 +53,61 @@ export const newbrand = (data) => ({
                     },
                     {
                         offset: 1,
-                        color: '#059DFB'
+                        color: '#2DD3B3'
+                    },
+                ]
+            )
+        },
+        data: data.map(item => item.value),
+        // 柱形图数据展示
+    }, ],
+    color: "#3DAAEB",
+    barWidth: 19,
+})
+// 新增分销商
+export const newDistributor = (data) => ({
+    tooltip: {
+        trigger: "axis",
+        axisPointer: {
+            type: "shadow",
+        },
+    },
+    grid: {
+        left: "5%",
+        right: "5%",
+        bottom: "0%",
+        top: "10",
+        containLabel: true,
+    },
+    xAxis: {
+        show: false,
+    },
+    yAxis: {
+        type: "category",
+        data: data.map(item => item.name),
+        splitLine: {
+            show: false,
+        },
+        axisLabel: {
+            textStyle: {
+                color: "#C5E4FF",
+                fontSize: 20,
+            },
+        },
+    },
+    series: [{
+        name: "2011年",
+        type: "bar",
+        itemStyle: {
+            color: new echarts.graphic.LinearGradient(
+                0, 0, 1, 0,
+                [{
+                        offset: 0,
+                        color: '#FACB46'
+                    },
+                    {
+                        offset: 1,
+                        color: '#E3AA2D'
                     },
                 ]
             )
@@ -68,6 +122,7 @@ export const newbrand = (data) => ({
 export const newMerchants = (data) => ({
     header: ['<span style="color:#050D1D">名称</span>', '<span style="color:#050D1D">类型</span>', '<span style="color:#050D1D">入驻时间</span>'],
     headerBGC: '#15B1AF',
+    rowNum: 10,
     data: data.map(item => {
         return [
             item.customerName,
@@ -198,7 +253,7 @@ export const amountComposition = (data) => ({
 })
 // 新增订单一览表
 export const newOrderForm = (data) => ({
-    header: ['<span style="color:#050D1D">订单编号</span>', '<span style="color:#050D1D">品牌商</span>', '<span style="color:#050D1D">款式</span>', '<span style="color:#050D1D">数量</span>', '<span style="color:#050D1D">下单时间</span>'],
+    header: ['<span style="color:#050D1D;font-weight: 600;font-size:18px"><span style="display: inline-block; vertical-align: middle; background: rgb(252, 206, 72);width: 4px;height: 16px; margin: 0px 10px; "></span>新增订单一览表</span>', '<span style="color:#050D1D">品牌商</span>', '<span style="color:#050D1D">款式</span>', '<span style="color:#050D1D">数量</span>', '<span style="color:#050D1D">下单时间</span>'],
     headerBGC: '#15B1AF',
     columnWidth: [300],
     rowNum: 4,
@@ -228,7 +283,7 @@ export const orderProgress = (data) => ({
     ],
     headerBGC: '#15B1AF',
     columnWidth: [240],
-    rowNum: 3,
+    rowNum: 4,
     align: ['left', 'center', 'center', 'center', 'center', 'center', 'center', 'center', 'center', ],
     data: data.map(item => {
         return [

@@ -3,12 +3,12 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-23 11:55:59
+ * @LastEditTime: 2021-03-31 23:17:05
 -->
 <template>
   <div class="left-data">
     <div class="left-row1">
-      <ShadowBox class="left-row1-box1" title="品牌商类型" line-color="#2DD3B3">
+      <ShadowBox class="left-row1-box1" title="客户类型" line-color="#2DD3B3">
         <div class="left-row1-box1__legend">
           <div
             v-for="(item, index) in brandTypeTitle"
@@ -24,12 +24,17 @@
           style="width: 60%; height: 60%"
         />
       </ShadowBox>
-      <ShadowBox title="品牌商规模" line-color="#FCCE48" class="left-row1-box2">
-        <dv-capsule-chart
+      <ShadowBox title="客户规模" line-color="#FCCE48" class="left-row1-box2">
+        <!-- <dv-capsule-chart
           :config="brandSize(brandSizeData)"
           style="width: 90%; height: 70%; margin-left: 30px; margin-top: 30px"
           class=""
-      /></ShadowBox>
+      /> -->
+        <Echart
+          :options="colorComposition(brandSizeData)"
+          style="width: 95%; height: 70%; margin: 0 auto"
+        />
+      </ShadowBox>
       <ShadowBox class="left-row1-box3" title="地域分布" line-color="#3DAAEB ">
         <div class="left-row1-box3__legend left-row1-box3__legend__right">
           <div
@@ -67,7 +72,7 @@
       </ShadowBox>
     </div>
     <div v-if="styleClassificationData.length" class="left-row2">
-      <ShadowBox title="款式分类" line-color="#FCCE48 ">
+      <ShadowBox title="品类占比" line-color="#FCCE48 ">
         <div class="left-row2-box1__flex">
           <div class="left-row2-box1__flex__title">
             {{ styleClassificationData[0].gender }}
@@ -131,31 +136,42 @@
           style="width: 90%; height: 70%; margin-left: 20px"
         />
       </ShadowBox>
-      <ShadowBox title="订单增长情况" line-color="#2DD3B3">
-        <Echart
-          :options="orderGrowth(orderGrowthData)"
-          style="width: 90%; height: 70%; margin-left: 20px"
-        />
-      </ShadowBox>
-    </div>
-    <div class="left-row3">
-      <ShadowBox title="服务类型" line-color="#2DD3B3">
-        <Echart
-          v-if="serviceTypeData.length"
-          :options="serviceType(serviceTypeData)"
-          style="width: 90%; height: 70%; margin-left: 20px"
-        />
-      </ShadowBox>
-      <ShadowBox title="订单生产类型" line-color="#664CC7">
+      <ShadowBox title="订单生产类型占比" line-color="#2DD3B3">
+        <!--
+          颜色构成 
+          <Echart
+          :options="colorComposition(colorCompositionData)"
+          style="width: 95%; height: 70%; margin: 0 auto"
+        /> -->
         <Echart
           :options="orderProductionType(orderProductionTypeData)"
           style="width: 100%; height: 70%"
         />
       </ShadowBox>
-      <ShadowBox title="颜色构成" line-color="#2DD3B3">
+    </div>
+    <div class="left-row3">
+      <ShadowBox title="品牌商订单排行" line-color="#2DD3B3">
+        <!-- 服务类型
         <Echart
-          :options="colorComposition(colorCompositionData)"
-          style="width: 100%; height: 70%"
+          v-if="serviceTypeData.length"
+          :options="serviceType(serviceTypeData)"
+          style="width: 90%; height: 70%; margin-left: 20px"
+        /> -->
+        <dv-scroll-board
+          :config="ppsRankList(ppsRankListData)"
+          style="width: 95%; height: 70%; margin: auto"
+        />
+      </ShadowBox>
+      <ShadowBox title="分销商订单排行" line-color="#664CC7">
+        <dv-scroll-board
+          :config="fxsRankList(fxsRankListData)"
+          style="width: 95%; height: 70%; margin: auto"
+        />
+      </ShadowBox>
+      <ShadowBox title="订单增长情况" line-color="#2DD3B3">
+        <Echart
+          :options="orderGrowth(orderGrowthData)"
+          style="width: 95%; height: 70%; margin-right: 20px"
         />
       </ShadowBox>
     </div>
@@ -174,6 +190,8 @@ import {
   orderGrowth,
   orderProductionType,
   colorComposition,
+  ppsRankList,
+  fxsRankList,
 } from "./options";
 export default {
   name: "CenterLeft",
@@ -188,6 +206,8 @@ export default {
       orderGrowth, // 订单增长情况--柱状图
       orderProductionType, // 订单生产类型
       colorComposition, // 颜色构成
+      ppsRankList, // 品牌商订单排行
+      fxsRankList, // 分销商订单排行
       areaLeft: [
         {
           val: " 华东区",
@@ -233,6 +253,8 @@ export default {
       orderProductionTypeData: [], // 订单生产类型
       orderAmountData: [], // 订单金额
       geographicalDistributionData: [], // 地域分布
+      ppsRankListData: [], // 品牌商订单排行
+      fxsRankListData: [], // 分销商商订单排行
     };
   },
   created() {
@@ -261,20 +283,24 @@ export default {
           this.styleClassificationTotal += i.num;
         });
         this.orderGrowthData = DATA.orderMonthData;
-        this.serviceTypeData = DATA.requirementTypeData;
+        // this.serviceTypeData = DATA.requirementTypeData;
         this.orderProductionTypeData = DATA.ooperationTypeData;
         this.geographicalDistributionData = DATA.regionData;
         // 处理品牌商规模数据格式
         let brandSizeList = [];
         Object.getOwnPropertyNames(DATA.scaleData).forEach(function (key) {
           let obj = {
-            value: DATA.scaleData[key],
+            value: DATA.scaleData[key] * 100,
             name: key,
           };
           brandSizeList.push(obj);
         });
         this.brandSizeData = brandSizeList;
         this.orderAmountData = DATA.priceRangeData;
+        // // 品牌商订单排行
+        this.ppsRankListData = DATA.ppsRankList;
+        // // 分销商订单排行
+        this.fxsRankListData = DATA.fxsRankList;
       }
     },
   },

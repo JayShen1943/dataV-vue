@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-22 16:24:31
+ * @LastEditTime: 2021-03-31 23:27:23
 -->
 <template>
   <div class="banner">
@@ -21,12 +21,25 @@
         src="@/assets/image/banner/banner-kid1.png"
         alt=""
         class="banner-kid"
+        @click="videoFlagClick"
       />
       <img
+        v-if="videoFlag"
         src="@/assets/image/banner/banner-kid2.png"
         alt=""
         class="banner-kid banner-kid__margin"
       />
+      <div v-else class="live-view">
+        <video-player
+          class="vjs-custom-skin"
+          ref="videoPlayer"
+          :options="playerOptions"
+          @ready="onPlayerReadied"
+          @timeupdate="onTimeupdate"
+          :playsinline="playsinline"
+        >
+        </video-player>
+      </div>
       <img
         src="@/assets/image/banner/banner-kid3.png"
         alt=""
@@ -70,16 +83,21 @@
 </template>
 
 <script>
+import { videoPlayer } from "vue-video-player";
 import { formatter } from "@/utils/tootls";
 import { findCenterScreenDataMiddle } from "@/service/api";
 import { mapOptions } from "./options";
 import { mapData } from "./mapData";
 export default {
   name: "Banner",
+  components: {
+    videoPlayer,
+  },
   data() {
     return {
       mapOptions,
       mapData,
+      videoFlag: false,
       topNformation: [
         { value: "13131212", title: "总交易金额" },
         { value: "13131212", title: "订单生产总件数" },
@@ -89,14 +107,56 @@ export default {
         { value: "1231", title: "品牌商" },
         { value: "123123", title: "分销商" },
         { value: "234", title: "设计师" },
-        { value: "234", title: "板房" },
-        { value: "123123", title: "面辅料商" },
-        { value: "234", title: "工艺商" },
-        { value: "234", title: "生产商" },
+        { value: "234", title: "打版工作室" },
+        { value: "123123", title: "面辅料供应商" },
+        { value: "234", title: "工艺供应商" },
+        { value: "234", title: "生产供应商" },
       ],
       formatter,
       bnnerTimerNum: null,
+      playerOptions: {
+        overNative: true,
+        autoplay: true, // 如果true,浏览器准备好时开始回放。
+        muted: true, // 默认情况下将会消除任何音频。
+        controls: true,
+        loop: false, // 导致视频一结束就重新开始。
+        aspectRatio: "480:270",
+        techOrder: ["html5"],
+        sourceOrder: true,
+        flash: {
+          hls: { withCredentials: false },
+        },
+        html5: { hls: { withCredentials: false } },
+        sources: [
+          {
+            withCredentials: false,
+            type: "application/x-mpegURL",
+            src:
+              // "http://wx19.sdvideo.cn:9999/3HKE024282PDAJA_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810",
+              // src:
+              "http://wx19.sdvideo.cn:9999/3HKCC140818C7XM_0.m3u8?key=840e0161000598f5c5a925f2eb7362d8", // 测试地址
+          },
+        ],
+      },
     };
+  },
+  computed: {
+    player() {
+      return this.$refs.videoPlayer.player;
+    },
+    currentStream() {
+      return this.currentTech === "Flash" ? "RTMP" : "HLS";
+    },
+    playsinline() {
+      let ua = navigator.userAgent.toLocaleLowerCase();
+      // x5内核
+      if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
+        return false;
+      } else {
+        // ios端
+        return true;
+      }
+    },
   },
   created() {
     this.getCenterScreenDataMiddle();
@@ -112,6 +172,9 @@ export default {
     this.bnnerTimer = null;
   },
   methods: {
+    videoFlagClick() {
+      this.videoFlag = !this.videoFlag;
+    },
     async getCenterScreenDataMiddle() {
       const RES = await findCenterScreenDataMiddle();
       if (RES) {
@@ -127,6 +190,16 @@ export default {
         this.bottomNformation[5].value = DATA.techniqueSupplierCount;
         this.bottomNformation[6].value = DATA.productionSupplierCount;
       }
+    },
+    onPlayerReadied() {
+      if (!this.initialized) {
+        this.initialized = true;
+        this.currentTech = this.player.techName_;
+      }
+    },
+    // record current time
+    onTimeupdate(e) {
+      console.log("currentTime", e.cache_.currentTime);
     },
   },
 };
@@ -159,6 +232,14 @@ export default {
       height: 270px;
       &__margin {
         margin: 0 10px;
+      }
+    }
+    .live-view {
+      // position: relative;
+      width: 480px;
+
+      .vjs-custom-skin {
+        height: 270px;
       }
     }
   }
@@ -227,7 +308,7 @@ export default {
         margin: 20px 0 10px;
         opacity: 1;
         color: #3daaeb;
-        font-size: 26px;
+        font-size: 24px;
         font-weight: 400;
         text-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
       }
