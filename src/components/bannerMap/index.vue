@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-04-01 15:14:10
+ * @LastEditTime: 2021-04-01 20:55:02
 -->
 <template>
   <div class="banner">
@@ -22,17 +22,17 @@
     </div>
     <div class="banner-kid-box">
       <img
-        v-if="videoFlag2"
+        v-if="videoFlag"
         src="@/assets/image/banner/banner-kid1.png"
         alt=""
         class="banner-kid"
       />
       <div v-else class="banner-kid">
         <iframe
+          ref="iframeVideo"
           :src="`https://open.ys7.com/ezopen/h5/iframe?url=ezopen://open.ys7.com/F28426316/1.live&autoplay=1&accessToken=${accessToken}&appKey=${appKey}`"
           width="480"
           height="270"
-          id="ysOpenDevice"
           frameborder="0"
           allowfullscreen
         >
@@ -56,11 +56,21 @@
         </video-player>
       </div>
       <img
-        @click="videoFlagClick2"
+        v-if="videoFlag"
         src="@/assets/image/banner/banner-kid3.png"
         alt=""
         class="banner-kid"
       />
+      <div v-else class="banner-kid">
+        <video-player
+          ref="videoPlayer2"
+          class="vjs-custom-skin"
+          :options="playerOptions2"
+          @ready="onPlayerReadied"
+          :playsinline="playsinline2"
+        >
+        </video-player>
+      </div>
     </div>
 
     <div class="top-nformation">
@@ -134,7 +144,31 @@ export default {
       ],
       formatter,
       bnnerTimerNum: null,
+      // 七楼1号球机
       playerOptions: {
+        overNative: true,
+        autoplay: true, // 如果true,浏览器准备好时开始回放。
+        muted: true, // 默认情况下将会消除任何音频。
+        controls: true,
+        loop: false, // 导致视频一结束就重新开始。
+        aspectRatio: "480:270",
+        techOrder: ["html5"],
+        sourceOrder: true,
+        flash: {
+          hls: { withCredentials: false },
+        },
+        html5: { hls: { withCredentials: false } },
+        sources: [
+          {
+            withCredentials: false,
+            type: "application/x-mpegURL",
+            src:
+              "http://wx19.sdvideo.cn:9999/3HKE024282WLG3M_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810",
+          },
+        ],
+      },
+      // 七楼2号球机
+      playerOptions2: {
         overNative: true,
         autoplay: true, // 如果true,浏览器准备好时开始回放。
         muted: true, // 默认情况下将会消除任何音频。
@@ -162,10 +196,23 @@ export default {
     player() {
       return this.$refs.videoPlayer.player;
     },
+    player2() {
+      return this.$refs.videoPlayer2.player;
+    },
     currentStream() {
       return this.currentTech === "Flash" ? "RTMP" : "HLS";
     },
     playsinline() {
+      let ua = navigator.userAgent.toLocaleLowerCase();
+      // x5内核
+      if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
+        return false;
+      } else {
+        // ios端
+        return true;
+      }
+    },
+    playsinline2() {
       let ua = navigator.userAgent.toLocaleLowerCase();
       // x5内核
       if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
@@ -184,6 +231,7 @@ export default {
     this.bnnerTimer = setInterval(() => {
       this.getCenterScreenDataLeft();
     }, bnnerTimerNum);
+    console.log(this.$refs.iframeVideo.style,11111111);
   },
   beforeDestroy() {
     clearInterval(this.bnnerTimer); // 清除定时器

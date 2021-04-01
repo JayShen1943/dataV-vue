@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-23 11:49:25
+ * @LastEditTime: 2021-04-01 20:47:11
 -->
 <template>
   <div class="right-screen">
@@ -18,7 +18,7 @@
     <main>
       <div class="right-screen-row1">
         <ShadowBox
-          title="· 设计打版"
+          title="设计打版"
           line-color="none"
           :width="259"
           :height="212"
@@ -30,7 +30,7 @@
           <div class="unit" style="top: -60px">件</div>
         </ShadowBox>
         <ShadowBox
-          title="· 面辅料采购"
+          title="面辅料采购"
           line-color="none"
           :width="259"
           :height="212"
@@ -41,20 +41,15 @@
           />
           <div class="unit" style="top: -60px">笔</div>
         </ShadowBox>
-        <ShadowBox
-          title="· 生产中"
-          line-color="none"
-          :width="328"
-          :height="212"
-        >
+        <ShadowBox title="生产中" line-color="none" :width="328" :height="212">
           <dv-digital-flop
             :config="digitalFlop3"
             style="position: relative; top: -46px"
           />
-          <div class="unit" style="top: -96px">件</div>
+          <div class="unit" style="top: -98px">件</div>
         </ShadowBox>
         <ShadowBox
-          title="· 验收入库"
+          title="验收入库"
           line-color="none"
           :width="327"
           :height="212"
@@ -65,10 +60,10 @@
           />
           <div class="unit" style="top: -99px">件</div>
         </ShadowBox>
-        <ShadowBox title="· 交付" line-color="none" :width="322" :height="212">
+        <ShadowBox title="交付" line-color="none" :width="322" :height="212">
           <dv-digital-flop
             :config="digitalFlop5"
-            style="position: relative; top: -56px"
+            style="position: relative; top: -50px"
           />
           <div class="unit" style="top: -96px">件</div>
         </ShadowBox>
@@ -285,6 +280,13 @@ export default {
     .right-screen-row1 {
       display: flex;
       // justify-content: space-between;
+      /deep/ .shadow-box__title {
+        justify-content: center;
+        margin: 20px 0;
+        .vertical-line {
+          display: none;
+        }
+      }
       .unit {
         background: linear-gradient(0deg, #1882d8 1%, #73c0ff 99%);
         font-size: 30px;
