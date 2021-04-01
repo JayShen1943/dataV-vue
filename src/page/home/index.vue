@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:06:12
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-31 23:54:41
+ * @LastEditTime: 2021-04-01 15:14:28
 -->
 <template>
   <div>
@@ -11,8 +11,8 @@
     <div class="jump-title" @click="jump('/leftScreen')">左侧副屏</div>
     <div class="jump-title" @click="jump('/rightScreen')">右侧副屏</div>
     <div>
-      <!-- <div class="liveView">
-        <video-player
+      <div class="liveView">
+        <!-- <video-player
           class="vjs-custom-skin"
           ref="videoPlayer"
           :options="playerOptions"
@@ -20,8 +20,17 @@
           @timeupdate="onTimeupdate"
           :playsinline="playsinline"
         >
-        </video-player>
-      </div> -->
+        </video-player> -->
+      </div>
+      <!-- <iframe
+        :src="`https://open.ys7.com/ezopen/h5/iframe?url=ezopen://open.ys7.com/F28426316/1.live&autoplay=1&accessToken=${accessToken}&appKey=${appKey}`"
+        width="480"
+        height="270"
+        id="ysOpenDevice"
+        frameborder="0"
+        allowfullscreen
+      >
+      </iframe> -->
     </div>
   </div>
 </template>
@@ -33,9 +42,9 @@ import "vue-video-player/src/custom-theme.css";
 import "videojs-contrib-hls";
 export default {
   name: "Home",
-  // components: {
-  //   videoPlayer,
-  // },
+  components: {
+    // videoPlayer,
+  },
   data() {
     return {
       initialized: false,
@@ -44,6 +53,9 @@ export default {
         rtmp: "",
         hls: "",
       },
+      accessToken:
+        "at.45e1h23tabmy28kqak0k0xyt04m24x2r-8abtwp38u9-0nyvhog-hslth8rdx",
+      appKey: "341647f9342042299dd3884f2f34e22f",
       playerOptions: {
         overNative: true,
         autoplay: false,
@@ -60,9 +72,8 @@ export default {
             withCredentials: false,
             type: "application/x-mpegURL",
             src:
-              "http://wx19.sdvideo.cn:9999/3HKE024282PDAJA_0.m3u8?key=0edb937d1aeac50dd9f4162f2727d810",
-            // src:
-            //   "http://wx19.sdvideo.cn:9999/3HKCC140818C7XM_0.m3u8?key=840e0161000598f5c5a925f2eb7362d8", // 测试地址
+              "https://open.ys7.com/ezopen/h5?url=ezopen://open.ys7.com/F28426316/1.live&autoplay=1&accessToken=at.45e1h23tabmy28kqak0k0xyt04m24x2r-8abtwp38u9-0nyvhog-hslth8rdx&appKey=341647f9342042299dd3884f2f34e22f`",
+              // `video/F28426316/1.live&autoplay=1&accessToken=at.45e1h23tabmy28kqak0k0xyt04m24x2r-8abtwp38u9-0nyvhog-hslth8rdx&appKey=341647f9342042299dd3884f2f34e22f`,
           },
         ],
       },
@@ -92,16 +103,16 @@ export default {
         path: url,
       });
     },
-    // onPlayerReadied() {
-    //   if (!this.initialized) {
-    //     this.initialized = true;
-    //     this.currentTech = this.player.techName_;
-    //   }
-    // },
-    // // record current time
-    // onTimeupdate(e) {
-    //   console.log("currentTime", e.cache_.currentTime);
-    // },
+    onPlayerReadied() {
+      if (!this.initialized) {
+        this.initialized = true;
+        this.currentTech = this.player.techName_;
+      }
+    },
+    // record current time
+    onTimeupdate(e) {
+      console.log("currentTime", e.cache_.currentTime);
+    },
   },
 };
 </script>

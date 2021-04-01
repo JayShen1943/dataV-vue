@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-04-01 10:12:57
+ * @LastEditTime: 2021-04-01 15:14:10
 -->
 <template>
   <div class="banner">
@@ -14,15 +14,30 @@
       style="width:1458px height: 836px"
     />
     <div class="earth">
-      <img src="@/assets/image/banner/earth-rotate.gif" alt="地球" />
+      <img
+        @click="videoFlagClick"
+        src="@/assets/image/banner/earth-rotate.gif"
+        alt="地球"
+      />
     </div>
     <div class="banner-kid-box">
       <img
+        v-if="videoFlag2"
         src="@/assets/image/banner/banner-kid1.png"
         alt=""
         class="banner-kid"
-        @click="videoFlagClick"
       />
+      <div v-else class="banner-kid">
+        <iframe
+          :src="`https://open.ys7.com/ezopen/h5/iframe?url=ezopen://open.ys7.com/F28426316/1.live&autoplay=1&accessToken=${accessToken}&appKey=${appKey}`"
+          width="480"
+          height="270"
+          id="ysOpenDevice"
+          frameborder="0"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
       <img
         v-if="videoFlag"
         src="@/assets/image/banner/banner-kid2.png"
@@ -41,6 +56,7 @@
         </video-player>
       </div>
       <img
+        @click="videoFlagClick2"
         src="@/assets/image/banner/banner-kid3.png"
         alt=""
         class="banner-kid"
@@ -98,6 +114,10 @@ export default {
       mapOptions,
       mapData,
       videoFlag: false,
+      videoFlag2: false,
+      accessToken:
+        "at.45e1h23tabmy28kqak0k0xyt04m24x2r-8abtwp38u9-0nyvhog-hslth8rdx",
+      appKey: "341647f9342042299dd3884f2f34e22f",
       topNformation: [
         { value: "13131212", title: "总交易金额" },
         { value: "13131212", title: "订单生产总件数" },
@@ -172,6 +192,9 @@ export default {
   methods: {
     videoFlagClick() {
       this.videoFlag = !this.videoFlag;
+    },
+    videoFlagClick2() {
+      this.videoFlag2 = !this.videoFlag2;
     },
     async getCenterScreenDataMiddle() {
       const RES = await findCenterScreenDataMiddle();
