@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-31 23:01:49
+ * @LastEditTime: 2021-04-01 09:22:06
  */
 // import echarts from "echarts";
 import {
@@ -442,7 +442,7 @@ export const ppsRankList = (data) => ({
 // 分销商订单排行
 export const fxsRankList = (data) => ({
     header: ['名称', '数量', '排名'],
-    headerBGC: '#FCCE48',
+    headerBGC: '#15B1AF',
     // oddRowBGC: '#0B86C2',
     // evenRowBGC: '',
     align: ['left', 'center', 'center'],
