@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:15:51
  * @LastEditors: JayShen
- * @LastEditTime: 2021-04-01 20:47:11
+ * @LastEditTime: 2021-04-02 13:15:51
 -->
 <template>
   <div class="right-screen">
@@ -94,7 +94,7 @@
       </div>
       <div class="right-screen-row3">
         <ShadowBox
-          title="新增订单一览表"
+          title="新增生产订单一览表"
           line-color="#2DD3B3"
           :width="1540"
           :height="340"

@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-04-01 00:18:36
+ * @LastEditTime: 2021-04-02 13:19:57
 -->
 <template>
   <div class="right-data">
@@ -42,6 +42,7 @@
       <ShadowBox title="工艺供应商地域分布" line-color="#2DD3B3 ">
         <dv-capsule-chart
           :config="distributor()"
+          class="right-row2-box2"
           style="width: 80%; height: 70%; margin: auto"
         />
         <!-- <div class="right-row2-box1__flex">
@@ -106,7 +107,7 @@ import {
   craftsman,
   factoryDistribution,
   sellers,
-  distributor
+  distributor,
 } from "./options";
 export default {
   name: "CenterRight",
@@ -170,12 +171,12 @@ export default {
   .right-row1 {
     display: flex;
     .right-row1-box1 {
-      // /deep/ .unit-label {
-      //   opacity: 0;
-      // }
-      // /deep/ .unit-text {
-      //   opacity: 0;
-      // }
+      /deep/ .unit-label {
+        opacity: 0;
+      }
+      /deep/ .unit-text {
+        opacity: 0;
+      }
     }
   }
   .right-row2 {
@@ -189,6 +190,14 @@ export default {
         text-align: left;
         color: #c5e4ff;
         margin-left: 30px;
+      }
+    }
+    .right-row2-box2 {
+      /deep/ .unit-label {
+        opacity: 0;
+      }
+      /deep/ .unit-text {
+        opacity: 0;
       }
     }
   }

@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 15:17:50
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-23 11:49:02
+ * @LastEditTime: 2021-04-02 13:16:07
  */
 import greenRound from "@/assets/image/icon/greenRound.png"
 import yellowRound from "@/assets/image/icon/yellowRound.png"
@@ -46,7 +46,7 @@ export const purchaseTable = (data) => ({
 
 // 新增订单一览表
 export const newOrderTable = (data) => ({
-    header: ['订单编号', '工厂', '货号', '名称', '货期', '数量', '外发时间'],
+    header: ['订单编号', '工厂', '货号', '名称', '货期', '数量', '接单时间'],
     headerBGC: '#67A6E0',
     columnWidth: [250],
     rowNum: 4,
