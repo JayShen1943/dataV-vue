@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-04-01 20:55:02
+ * @LastEditTime: 2021-04-10 17:22:12
 -->
 <template>
   <div class="banner">
@@ -126,7 +126,7 @@ export default {
       videoFlag: false,
       videoFlag2: false,
       accessToken:
-        "at.45e1h23tabmy28kqak0k0xyt04m24x2r-8abtwp38u9-0nyvhog-hslth8rdx",
+        "at.4t2etpt567nmm4fe10p6fe9h23n66w6r-13kcwd0fba-0zrxhfl-dfjg7wpxr",
       appKey: "341647f9342042299dd3884f2f34e22f",
       topNformation: [
         { value: "13131212", title: "总交易金额" },
@@ -231,7 +231,6 @@ export default {
     this.bnnerTimer = setInterval(() => {
       this.getCenterScreenDataLeft();
     }, bnnerTimerNum);
-    console.log(this.$refs.iframeVideo.style,11111111);
   },
   beforeDestroy() {
     clearInterval(this.bnnerTimer); // 清除定时器
