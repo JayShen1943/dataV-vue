@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-04-10 17:22:12
+ * @LastEditTime: 2021-04-18 16:50:12
 -->
 <template>
   <div class="banner">
@@ -126,8 +126,7 @@ export default {
       videoFlag: false,
       videoFlag2: false,
       accessToken:
-        "at.4t2etpt567nmm4fe10p6fe9h23n66w6r-13kcwd0fba-0zrxhfl-dfjg7wpxr",
-      appKey: "341647f9342042299dd3884f2f34e22f",
+        "at.1eqhubc98ekv4bfu8d3biqyd7qvcsjn7-1vx8pjv2n3-11ju44f-mpsjupt9s",
       topNformation: [
         { value: "13131212", title: "总交易金额" },
         { value: "13131212", title: "订单生产总件数" },
