@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 20:05:08
  * @LastEditors: JayShen
- * @LastEditTime: 2021-04-01 09:22:06
+ * @LastEditTime: 2021-04-19 19:18:34
  */
 // import echarts from "echarts";
 import {
@@ -62,16 +62,44 @@ export const brandSize = (data = [{
     showValue: true,
 })
 // 地域分布--饼图
-export const geographicalDistribution = (data) => ({
+export const geographicalDistribution = (data = [{
+        value: 38,
+        regionName: '华南'
+    }, {
+        value: 31,
+        regionName: '华东'
+    },
+    {
+        value: 12,
+        regionName: '华北'
+    },
+    {
+        value: 11,
+        regionName: '华中'
+    },
+    {
+        value: 3,
+        regionName: '西北'
+    },
+    {
+        value: 2,
+        regionName: '西南'
+    },
+    {
+        value: 3,
+        regionName: '东北'
+    },
+
+]) => ({
     radius: "70%",
     activeRadius: "80%",
     data: data.map(item => {
         return {
-            value: item.num,
+            value: item.value,
             name: item.regionName
         }
     }),
-    color: pieColor2,
+    color: ['#60CAAE', '#FCCE48', '#315EEF', '#E7A976', '#E96074', '#664CC7', '#3DAAEB'],
     digitalFlopStyle: {
         fontSize: 20
     },
@@ -190,8 +218,11 @@ export const orderGrowth = (data) => ({
             show: true,
             textStyle: {
                 color: "#fff",
-                fontSize: 14,
+                fontSize: 10,
             },
+            interval: "auto",
+            rotate: -60
+
         },
         // 坐标轴设置
         axisLine: {

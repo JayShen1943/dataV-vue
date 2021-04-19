@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-01 17:02:36
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-31 23:17:05
+ * @LastEditTime: 2021-04-19 19:16:22
 -->
 <template>
   <div class="left-data">
@@ -51,7 +51,7 @@
           </div>
         </div>
         <dv-active-ring-chart
-          :config="geographicalDistribution(geographicalDistributionData)"
+          :config="geographicalDistribution()"
           class="left-row1-box3__chart"
           style="width: 60%; height: 60%"
         />
@@ -210,6 +210,10 @@ export default {
       fxsRankList, // 分销商订单排行
       areaLeft: [
         {
+          val: " 华南区",
+          color: "#60CAAE",
+        },
+        {
           val: " 华东区",
           color: "#FCCE48",
         },
@@ -221,16 +225,8 @@ export default {
           val: " 华中区",
           color: "#E7A976",
         },
-        {
-          val: " 华南区",
-          color: "#60CAAE",
-        },
       ],
       areaRight: [
-        {
-          val: " 东北区",
-          color: "#3DAAEB",
-        },
         {
           val: " 西北区",
           color: "#E96074",
@@ -238,6 +234,10 @@ export default {
         {
           val: " 西南区",
           color: "#664CC7",
+        },
+        {
+          val: " 东北区",
+          color: "#3DAAEB",
         },
       ],
       centerLeftTimer: null, // 定时器
@@ -285,7 +285,7 @@ export default {
         this.orderGrowthData = DATA.orderMonthData;
         // this.serviceTypeData = DATA.requirementTypeData;
         this.orderProductionTypeData = DATA.ooperationTypeData;
-        this.geographicalDistributionData = DATA.regionData;
+        // this.geographicalDistributionData = DATA.regionData;
         // 处理品牌商规模数据格式
         let brandSizeList = [];
         Object.getOwnPropertyNames(DATA.scaleData).forEach(function (key) {
