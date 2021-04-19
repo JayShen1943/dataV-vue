@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-03-02 09:55:09
  * @LastEditors: JayShen
- * @LastEditTime: 2021-04-18 16:50:12
+ * @LastEditTime: 2021-04-19 22:08:52
 -->
 <template>
   <div class="banner">
@@ -28,7 +28,7 @@
         class="banner-kid"
       />
       <div v-else class="banner-kid">
-        <iframe
+        <!-- <iframe
           ref="iframeVideo"
           :src="`https://open.ys7.com/ezopen/h5/iframe?url=ezopen://open.ys7.com/F28426316/1.live&autoplay=1&accessToken=${accessToken}&appKey=${appKey}`"
           width="480"
@@ -36,7 +36,24 @@
           frameborder="0"
           allowfullscreen
         >
-        </iframe>
+        </iframe> -->
+        <!-- <video-player
+          class="vjs-custom-skin"
+          ref="videoPlayer3"
+          :options="playerOptions3"
+          @timeupdate="onTimeupdate2"
+          :playsinline="playsinline"
+        >
+        </video-player> -->
+        <video
+          id="playWind"
+          src="https://hls01open.ys7.com/openlive/1e538b1f592c473895ddba92a49659ce.m3u8"
+          controls
+          playsInline
+          webkit-playsinline
+          muted
+          autoplay
+        ></video>
       </div>
       <img
         v-if="videoFlag"
@@ -49,7 +66,6 @@
           class="vjs-custom-skin"
           ref="videoPlayer"
           :options="playerOptions"
-          @ready="onPlayerReadied"
           @timeupdate="onTimeupdate"
           :playsinline="playsinline"
         >
@@ -66,8 +82,7 @@
           ref="videoPlayer2"
           class="vjs-custom-skin"
           :options="playerOptions2"
-          @ready="onPlayerReadied"
-          :playsinline="playsinline2"
+          :playsinline="playsinline"
         >
         </video-player>
       </div>
@@ -114,6 +129,7 @@ import { formatter } from "@/utils/tootls";
 import { findCenterScreenDataMiddle } from "@/service/api";
 import { mapOptions } from "./options";
 import { mapData } from "./mapData";
+import EZUIKit from "../../../static/ezuikit";
 export default {
   name: "Banner",
   components: {
@@ -121,6 +137,7 @@ export default {
   },
   data() {
     return {
+      playerInstance: null,
       mapOptions,
       mapData,
       videoFlag: false,
@@ -189,29 +206,32 @@ export default {
           },
         ],
       },
+      playerOptions3: {
+        overNative: true,
+        autoplay: true, // 如果true,浏览器准备好时开始回放。
+        muted: true, // 默认情况下将会消除任何音频。
+        controls: true,
+        loop: false, // 导致视频一结束就重新开始。
+        aspectRatio: "480:270",
+        techOrder: ["html5"],
+        sourceOrder: true,
+        flash: {
+          flv: { withCredentials: false },
+        },
+        html5: { flv: { withCredentials: false } },
+        sources: [
+          {
+            withCredentials: false,
+            type: "application/x-mpegURL",
+            src:
+              "https://flvopen.ys7.com:9188/openlive/1e538b1f592c473895ddba92a49659ce.flv",
+          },
+        ],
+      },
     };
   },
   computed: {
-    player() {
-      return this.$refs.videoPlayer.player;
-    },
-    player2() {
-      return this.$refs.videoPlayer2.player;
-    },
-    currentStream() {
-      return this.currentTech === "Flash" ? "RTMP" : "HLS";
-    },
     playsinline() {
-      let ua = navigator.userAgent.toLocaleLowerCase();
-      // x5内核
-      if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
-        return false;
-      } else {
-        // ios端
-        return true;
-      }
-    },
-    playsinline2() {
       let ua = navigator.userAgent.toLocaleLowerCase();
       // x5内核
       if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
@@ -230,17 +250,33 @@ export default {
     this.bnnerTimer = setInterval(() => {
       this.getCenterScreenDataLeft();
     }, bnnerTimerNum);
+    this.initPlayer();
   },
   beforeDestroy() {
     clearInterval(this.bnnerTimer); // 清除定时器
     this.bnnerTimer = null;
   },
   methods: {
+    initPlayer() {
+      // this.playerInstance = new EZUIKit.EZUIPlayer("playWind");
+      this.playerInstance = new EZUIKit.EZUIPlayer("playWind");
+    },
+
+    // initPlayer() {
+    //   this.playerInstance = new EZUIKit.EZUIPlayer({
+    //     id: "playWind",
+    //     autoplay: true,
+    //     url:
+    //       "https://hls01open.ys7.com/openlive/1e538b1f592c473895ddba92a49659ce.m3u8",
+    //     accessToken: "",
+    //     decoderPath: "",
+    //     JSPlugin: "",
+    //     width: "400",
+    //     height: "300",
+    //   });
+    // },
     videoFlagClick() {
       this.videoFlag = !this.videoFlag;
-    },
-    videoFlagClick2() {
-      this.videoFlag2 = !this.videoFlag2;
     },
     async getCenterScreenDataMiddle() {
       const RES = await findCenterScreenDataMiddle();
@@ -258,15 +294,18 @@ export default {
         this.bottomNformation[6].value = DATA.productionSupplierCount;
       }
     },
-    onPlayerReadied() {
-      if (!this.initialized) {
-        this.initialized = true;
-        this.currentTech = this.player.techName_;
-      }
-    },
+    // onPlayerReadied() {
+    //   if (!this.initialized) {
+    //     this.initialized = true;
+    //     this.currentTech = this.player.techName_;
+    //   }
+    // },
     // record current time
     onTimeupdate(e) {
       // console.log("currentTime", e.cache_.currentTime);
+    },
+    onTimeupdate2(e) {
+      console.log("currentTime2", e.cache_.currentTime);
     },
   },
 };
@@ -274,6 +313,10 @@ export default {
 
 <style lang="less" scoped>
 .banner {
+  #playWind {
+    width: 480px;
+    height: 270px;
+  }
   position: relative;
   .earth {
     position: absolute;

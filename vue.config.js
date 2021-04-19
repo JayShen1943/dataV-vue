@@ -3,7 +3,7 @@
  * @Author: JayShen
  * @Date: 2021-02-27 23:07:27
  * @LastEditors: JayShen
- * @LastEditTime: 2021-03-31 23:53:26
+ * @LastEditTime: 2021-04-19 20:57:04
  */
 const path = require('path')
 
@@ -11,6 +11,8 @@ function resolve(dir) {
     return path.join(__dirname, dir) //path.join(__dirname)设置绝对路径
 }
 module.exports = {
+    lintOnSave: false,
+
     devServer: {
         port: 1943,
         proxy: {
